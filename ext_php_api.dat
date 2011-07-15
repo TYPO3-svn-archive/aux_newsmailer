@@ -1,0 +1,105 @@
+a:2:{s:4:"meta";a:3:{s:5:"title";s:30:"Newsletters via news (tt_news)";s:5:"descr";s:0:"";s:7:"options";a:2:{s:10:"usageCount";N;s:19:"includeCodeAbstract";N;}}s:5:"files";a:4:{s:14:"MD5_671f3fa3d4";a:4:{s:8:"filename";s:33:"class_tx_auxnewsmailer_static.php";s:8:"filesize";i:223;s:6:"header";N;s:3:"DAT";a:2:{i:1;a:4:{s:6:"header";s:30:"class tx_auxnewsmailer_static{";s:5:"class";i:1;s:11:"parentClass";s:23:"tx_auxnewsmailer_static";s:6:"atLine";i:0;}i:3;a:6:{s:6:"header";s:34:"function getLang(&$params,&$pObj){";s:11:"parentClass";s:23:"tx_auxnewsmailer_static";s:7:"content";s:0:"";s:12:"content_size";i:124;s:13:"content_lines";i:10;s:6:"atLine";i:2;}}}s:14:"MD5_ebfc5002ec";a:4:{s:8:"filename";s:33:"mod1/class_auxnewsmailer_core.php";s:8:"filesize";i:24168;s:6:"header";a:5:{s:4:"text";s:59:"
+
+Module 'News mailer' for the 'aux_newsmailer' extension.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:1:{i:0;s:48:"@author	Tim Wentzlau <tim.wentzlau@auxilior.com>";}s:11:"other_index";a:1:{s:7:"@author";a:1:{i:0;s:40:"Tim Wentzlau <tim.wentzlau@auxilior.com>";}}}s:3:"DAT";a:18:{i:1;a:7:{s:6:"header";s:50:"class tx_auxnewsmailer_core extends t3lib_SCbase {";s:5:"class";i:1;s:11:"parentClass";s:21:"tx_auxnewsmailer_core";s:7:"content";s:0:"";s:12:"content_size";i:52;s:13:"content_lines";i:6;s:6:"atLine";i:34;}i:3;a:6:{s:6:"header";s:32:"function loadControl($idctrl=0){";s:11:"parentClass";s:21:"tx_auxnewsmailer_core";s:7:"content";s:0:"";s:12:"content_size";i:734;s:13:"content_lines";i:37;s:6:"atLine";i:42;}i:5;a:7:{s:6:"header";s:24:"function batch($action){";s:11:"parentClass";s:21:"tx_auxnewsmailer_core";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+[Describe function...]
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:12:"$action: ...";}}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:640;s:13:"content_lines";i:21;s:6:"atLine";i:86;}i:7;a:7:{s:6:"header";s:29:"function mailList($idctrl)
+	{";s:11:"parentClass";s:21:"tx_auxnewsmailer_core";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+[Describe function...]
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:12:"$idctrl: ...";}}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:1356;s:13:"content_lines";i:60;s:6:"atLine";i:114;}i:9;a:7:{s:6:"header";s:56:"function createMsg($uid,$newslist,$ctrl,$preview=false){";s:11:"parentClass";s:21:"tx_auxnewsmailer_core";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+[Describe function...]
+";s:5:"param";a:4:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:9:"$uid: ...";}i:1;a:2:{i:0;s:6:"[type]";i:1;s:14:"$newslist: ...";}i:2;a:2:{i:0;s:6:"[type]";i:1;s:10:"$ctrl: ...";}i:3;a:2:{i:0;s:6:"[type]";i:1;s:13:"$preview: ...";}}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:1789;s:13:"content_lines";i:67;s:6:"atLine";i:185;}i:11;a:7:{s:6:"header";s:33:"function formatHTML($ctrl,$news){";s:11:"parentClass";s:21:"tx_auxnewsmailer_core";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+[Describe function...]
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:10:"$ctrl: ...";}i:1;a:2:{i:0;s:6:"[type]";i:1;s:10:"$news: ...";}}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:1049;s:13:"content_lines";i:30;s:6:"atLine";i:260;}i:13;a:7:{s:6:"header";s:34:"function formatPlain($ctrl,$news){";s:11:"parentClass";s:21:"tx_auxnewsmailer_core";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+[Describe function...]
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:10:"$ctrl: ...";}i:1;a:2:{i:0;s:6:"[type]";i:1;s:10:"$news: ...";}}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:604;s:13:"content_lines";i:21;s:6:"atLine";i:298;}i:15;a:7:{s:6:"header";s:52:"function createNewsLetter($ctrl,$news,$type='html'){";s:11:"parentClass";s:21:"tx_auxnewsmailer_core";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+[Describe function...]
+";s:5:"param";a:3:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:10:"$ctrl: ...";}i:1;a:2:{i:0;s:6:"[type]";i:1;s:10:"$news: ...";}i:2;a:2:{i:0;s:6:"[type]";i:1;s:10:"$type: ...";}}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:1402;s:13:"content_lines";i:44;s:6:"atLine";i:328;}i:17;a:6:{s:6:"header";s:21:"function smsList()
+	{";s:11:"parentClass";s:21:"tx_auxnewsmailer_core";s:7:"content";s:0:"";s:12:"content_size";i:2237;s:13:"content_lines";i:80;s:6:"atLine";i:374;}i:19;a:7:{s:6:"header";s:27:"function getUserInfo($uid){";s:11:"parentClass";s:21:"tx_auxnewsmailer_core";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+[Describe function...]
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:9:"$uid: ...";}}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:634;s:13:"content_lines";i:23;s:6:"atLine";i:462;}i:21;a:7:{s:6:"header";s:30:"function getMessageInfo($uid){";s:11:"parentClass";s:21:"tx_auxnewsmailer_core";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+[Describe function...]
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:9:"$uid: ...";}}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:1662;s:13:"content_lines";i:47;s:6:"atLine";i:492;}i:23;a:7:{s:6:"header";s:35:"function scanNews($list,$idctrl)
+	{";s:11:"parentClass";s:21:"tx_auxnewsmailer_core";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+[Describe function...]
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:10:"$list: ...";}i:1;a:2:{i:0;s:6:"[type]";i:1;s:12:"$idctrl: ...";}}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:2080;s:13:"content_lines";i:76;s:6:"atLine";i:547;}i:25;a:7:{s:6:"header";s:30:"function checkDuration($ctrl){";s:11:"parentClass";s:21:"tx_auxnewsmailer_core";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+[Describe function...]
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:10:"$ctrl: ...";}}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:1060;s:13:"content_lines";i:37;s:6:"atLine";i:631;}i:27;a:7:{s:6:"header";s:34:"function sendMail($inbatch=false){";s:11:"parentClass";s:21:"tx_auxnewsmailer_core";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+[Describe function...]
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:13:"$inbatch: ...";}}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:1657;s:13:"content_lines";i:53;s:6:"atLine";i:675;}i:29;a:7:{s:6:"header";s:74:"function domail($email,$subject,$message,$fromEMail,$fromName,$html="")
+	{";s:11:"parentClass";s:21:"tx_auxnewsmailer_core";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+[Describe function...]
+";s:5:"param";a:6:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:11:"$email: ...";}i:1;a:2:{i:0;s:6:"[type]";i:1;s:13:"$subject: ...";}i:2;a:2:{i:0;s:6:"[type]";i:1;s:13:"$message: ...";}i:3;a:2:{i:0;s:6:"[type]";i:1;s:15:"$fromEMail: ...";}i:4;a:2:{i:0;s:6:"[type]";i:1;s:14:"$fromName: ...";}i:5;a:2:{i:0;s:6:"[type]";i:1;s:10:"$html: ...";}}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:1229;s:13:"content_lines";i:40;s:6:"atLine";i:740;}i:31;a:7:{s:6:"header";s:26:"function formatStr($str) {";s:11:"parentClass";s:21:"tx_auxnewsmailer_core";s:4:"cDat";a:3:{s:4:"text";s:56:"
+
+Format string with general_stdWrap from configuration
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:15:"$string to wrap";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:14:"wrapped string";}}s:7:"content";s:0:"";s:12:"content_size";i:152;s:13:"content_lines";i:6;s:6:"atLine";i:788;}i:33;a:4:{s:6:"header";s:25:"function initPidList () {";s:11:"parentClass";s:21:"tx_auxnewsmailer_core";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+[Describe function...]
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:6:"atLine";i:800;}i:35;a:7:{s:6:"header";s:41:"function getImage($file,$height,$width) {";s:11:"parentClass";s:21:"tx_auxnewsmailer_core";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+[Describe function...]
+";s:5:"param";a:3:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:10:"$file: ...";}i:1;a:2:{i:0;s:6:"[type]";i:1;s:12:"$height: ...";}i:2;a:2:{i:0;s:6:"[type]";i:1;s:11:"$width: ...";}}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:1322;s:13:"content_lines";i:46;s:6:"atLine";i:827;}}}s:14:"MD5_19aaeae789";a:4:{s:8:"filename";s:14:"mod1/index.php";s:8:"filesize";i:13118;s:6:"header";a:5:{s:4:"text";s:59:"
+
+Module 'News mailer' for the 'aux_newsmailer' extension.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:1:{i:0;s:48:"@author	Tim Wentzlau <tim.wentzlau@auxilior.com>";}s:11:"other_index";a:1:{s:7:"@author";a:1:{i:0;s:40:"Tim Wentzlau <tim.wentzlau@auxilior.com>";}}}s:3:"DAT";a:10:{i:1;a:7:{s:6:"header";s:62:"class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {";s:5:"class";i:1;s:11:"parentClass";s:24:"tx_auxnewsmailer_module1";s:7:"content";s:0:"";s:12:"content_size";i:51;s:13:"content_lines";i:4;s:6:"atLine";i:48;}i:3;a:7:{s:6:"header";s:17:"function init()	{";s:11:"parentClass";s:24:"tx_auxnewsmailer_module1";s:4:"cDat";a:3:{s:4:"text";s:1:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:319;s:13:"content_lines";i:13;s:6:"atLine";i:56;}i:5;a:7:{s:6:"header";s:23:"function menuConfig()	{";s:11:"parentClass";s:24:"tx_auxnewsmailer_module1";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+[Describe function...]
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:385;s:13:"content_lines";i:12;s:6:"atLine";i:75;}i:7;a:7:{s:6:"header";s:17:"function main()	{";s:11:"parentClass";s:24:"tx_auxnewsmailer_module1";s:4:"cDat";a:3:{s:4:"text";s:67:"
+
+Main function of the module. Write the content to $this->content
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:858;s:13:"content_lines";i:20;s:6:"atLine";i:93;}i:9;a:6:{s:6:"header";s:25:"function jumpToUrl(URL)	{";s:11:"parentClass";s:24:"tx_auxnewsmailer_module1";s:7:"content";s:0:"";s:12:"content_size";i:2054;s:13:"content_lines";i:52;s:6:"atLine";i:125;}i:11;a:7:{s:6:"header";s:25:"function printContent()	{";s:11:"parentClass";s:24:"tx_auxnewsmailer_module1";s:4:"cDat";a:3:{s:4:"text";s:29:"
+
+Prints out the module HTML
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:70;s:13:"content_lines";i:5;s:6:"atLine";i:183;}i:13;a:7:{s:6:"header";s:26:"function moduleContent()	{";s:11:"parentClass";s:24:"tx_auxnewsmailer_module1";s:4:"cDat";a:3:{s:4:"text";s:31:"
+
+Generates the module content
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:1661;s:13:"content_lines";i:42;s:6:"atLine";i:194;}i:15;a:7:{s:6:"header";s:26:"function renderOverview(){";s:11:"parentClass";s:24:"tx_auxnewsmailer_module1";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+[Describe function...]
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:2784;s:13:"content_lines";i:108;s:6:"atLine";i:242;}i:17;a:4:{s:6:"header";s:30:"function getUsrMsgCount($msg){";s:11:"parentClass";s:24:"tx_auxnewsmailer_module1";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+[Describe function...]
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:9:"$msg: ...";}}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:6:"atLine";i:357;}i:19;a:7:{s:6:"header";s:30:"function renderPreview($type){";s:11:"parentClass";s:24:"tx_auxnewsmailer_module1";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+[Describe function...]
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:10:"$type: ...";}}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:1352;s:13:"content_lines";i:59;s:6:"atLine";i:389;}}}s:14:"MD5_bf9adf79fe";a:4:{s:8:"filename";s:34:"pi1/class.tx_auxnewsmailer_pi1.php";s:8:"filesize";i:13383;s:6:"header";a:5:{s:4:"text";s:66:"
+
+Plugin 'Mail News settings' for the 'aux_newsmailer' extension.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:1:{i:0;s:48:"@author	Tim Wentzlau <tim.wentzlau@auxilior.com>";}s:11:"other_index";a:1:{s:7:"@author";a:1:{i:0;s:40:"Tim Wentzlau <tim.wentzlau@auxilior.com>";}}}s:3:"DAT";a:11:{i:1;a:7:{s:6:"header";s:49:"class tx_auxnewsmailer_pi1 extends tslib_pibase {";s:5:"class";i:1;s:11:"parentClass";s:20:"tx_auxnewsmailer_pi1";s:7:"content";s:0:"";s:12:"content_size";i:276;s:13:"content_lines";i:6;s:6:"atLine";i:33;}i:3;a:7:{s:6:"header";s:31:"function main($content,$conf)	{";s:11:"parentClass";s:20:"tx_auxnewsmailer_pi1";s:4:"cDat";a:3:{s:4:"text";s:30:"
+
+[Put your description here]
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:13:"$content: ...";}i:1;a:2:{i:0;s:6:"[type]";i:1;s:10:"$conf: ...";}}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:639;s:13:"content_lines";i:30;s:6:"atLine";i:47;}i:5;a:7:{s:6:"header";s:21:"function init($conf){";s:11:"parentClass";s:20:"tx_auxnewsmailer_pi1";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+[Describe function...]
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:10:"$conf: ...";}}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:605;s:13:"content_lines";i:18;s:6:"atLine";i:84;}i:7;a:6:{s:6:"header";s:24:"function listusercat() {";s:11:"parentClass";s:20:"tx_auxnewsmailer_pi1";s:7:"content";s:0:"";s:12:"content_size";i:1569;s:13:"content_lines";i:47;s:6:"atLine";i:104;}i:9;a:7:{s:6:"header";s:49:"function buildCatTree($idparent,$pages,$usercat){";s:11:"parentClass";s:20:"tx_auxnewsmailer_pi1";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+[Describe function...]
+";s:5:"param";a:3:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:14:"$idparent: ...";}i:1;a:2:{i:0;s:6:"[type]";i:1;s:11:"$pages: ...";}i:2;a:2:{i:0;s:6:"[type]";i:1;s:13:"$usercat: ...";}}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:965;s:13:"content_lines";i:25;s:6:"atLine";i:160;}i:11;a:6:{s:6:"header";s:25:"function submitusercat(){";s:11:"parentClass";s:20:"tx_auxnewsmailer_pi1";s:7:"content";s:0:"";s:12:"content_size";i:1661;s:13:"content_lines";i:57;s:6:"atLine";i:209;}i:13;a:7:{s:6:"header";s:36:"function getUserCat($idcat,$iduser){";s:11:"parentClass";s:20:"tx_auxnewsmailer_pi1";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+[Describe function...]
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:11:"$idcat: ...";}i:1;a:2:{i:0;s:6:"[type]";i:1;s:12:"$iduser: ...";}}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:603;s:13:"content_lines";i:18;s:6:"atLine";i:274;}i:15;a:7:{s:6:"header";s:48:"function setUserCat($idcat,$iduser,$mail,$sms)	{";s:11:"parentClass";s:20:"tx_auxnewsmailer_pi1";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+[Describe function...]
+";s:5:"param";a:4:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:11:"$idcat: ...";}i:1;a:2:{i:0;s:6:"[type]";i:1;s:12:"$iduser: ...";}i:2;a:2:{i:0;s:6:"[type]";i:1;s:10:"$mail: ...";}i:3;a:2:{i:0;s:6:"[type]";i:1;s:9:"$sms: ...";}}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:1487;s:13:"content_lines";i:55;s:6:"atLine";i:302;}i:17;a:7:{s:6:"header";s:30:"function getParentCat($idcat){";s:11:"parentClass";s:20:"tx_auxnewsmailer_pi1";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+[Describe function...]
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:11:"$idcat: ...";}}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:347;s:13:"content_lines";i:15;s:6:"atLine";i:364;}i:19;a:4:{s:6:"header";s:25:"function initPidList () {";s:11:"parentClass";s:20:"tx_auxnewsmailer_pi1";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+[Describe function...]
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:6:"atLine";i:385;}i:21;a:7:{s:6:"header";s:41:"function getImage($file,$height,$width) {";s:11:"parentClass";s:20:"tx_auxnewsmailer_pi1";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+[Describe function...]
+";s:5:"param";a:3:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:10:"$file: ...";}i:1;a:2:{i:0;s:6:"[type]";i:1;s:12:"$height: ...";}i:2;a:2:{i:0;s:6:"[type]";i:1;s:11:"$width: ...";}}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:1365;s:13:"content_lines";i:49;s:6:"atLine";i:412;}}}}}

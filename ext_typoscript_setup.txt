@@ -1,0 +1,12 @@
+
+plugin.tx_auxnewsmailer_pi1{ 
+# cat=plugin.tx_fertenews_pi1/file; type=file[html,htm,tmpl,txt]; label= Template File: HTML-template file for display. See EXT:fe_rtenews/pi1/default.tmpl for an example
+ file.template = EXT:fe_rtenews/pi1/default.tmpl
+ # cat=plugin.tx_fertenews_pi1/storagePID; type=int; label= Storage PID: PID of Storage Foolder. 
+ storagePID = 9
+ # cat=plugin.tx_fertenews_pi1/newsPID; type=int; label= News Page PID: PID of News. 
+ newsPID = 93
+ # cat=plugin.tx_fertenews_pi1/mailAdmin; type=text; label= Mail of News Administrator.
+ mailAdmin = admin@mydomain.com
+ queuePublish = 0
+}

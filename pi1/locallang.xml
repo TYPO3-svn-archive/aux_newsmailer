@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'aux_newsmailer'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="submit">Update</label>
+			<label index="usenewsletters">Receive newsletters</label>
+			<label index="usehtml">Use HTML format (newsletters with formatting and pictures)</label>
+			<label index="cat">Categories</label>
+		</languageKey>
+		<languageKey index="dk" type="array">
+			<label index="submit">Opdater</label>
+			<label index="usenewsletters">Modtag nyhedsbreve</label>
+			<label index="usehtml">Benyt htmlformat (Nyhedsbreve med billeder)</label>
+			<label index="cat">Kategorier</label>
+		</languageKey>
+		<languageKey index="fo" type="array">
+			<label index="submit">Opdater</label>
+			<label index="usenewsletters">Modtag nyhedsbreve</label>
+			<label index="usehtml">Benyt htmlformat (Nyhedsbreve med billeder)</label>
+			<label index="cat">Kategorier</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="submit">Update</label>
+            <label index="usenewsletters">Newsletter empfangen</label>
+            <label index="usehtml">HTML-Format verwenden (Newsletter mit Formatierung und Bildern)</label>
+            <label index="cat">Kategorien</label>
+		</languageKey>
+	</data>
+</T3locallang>

@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <description></description>
+        <type></type>
+        <csh_table></csh_table>
+        <labelContext type="array">
+        </labelContext>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="title">Newsletter via news</label>
+            <label index="function1">Overview</label>
+            <label index="function2">Preview</label>
+            <label index="function3">Function #3</label>
+            <label index="send">Done</label>
+            <label index="emails">e-mails</label>
+            <label index="scanned">Scanned</label>
+            <label index="messages">Newsletters</label>
+            <label index="created">Created</label>
+            <label index="mailmessages">messages</label>
+            <label index="lastscan">Last scan:</label>
+            <label index="pendingmsg">Pending messages</label>
+            <label index="invoke">Send newsletters</label>
+            <label index="start">Start</label>
+            <label index="end">end</label>
+            <label index="unsend">Pending</label>
+            <label index="markall">Mark all as send (delete job)</label>
+            <label index="unsendnews">Pending news</label>
+            <label index="createmsg">Create newsletters</label>
+            <label index="newstitle">Topic</label>
+            <label index="datetime">Time</label>
+            <label index="readmore">[Read more]</label>
+            <label index="catcount">Categories</label>
+            <label index="nextscan">Next scan</label>
+            <label index="nocat">Not included, no assigned categories</label>
+            <label index="catmsg">The flag &quot;Use categories&quot; is set in the newsletter control, this prevents news items without categories to be send. This flag should only be set if FE users should receive personalized newletters based on categories.</label>
+            <label index="starttime">Include</label>
+            <label index="editprofile">[Edit profile]</label>
+            <label index="signoff">You received this newsletter because you registered on our website at ###domain###. If you want to cancel the registration, please click below to edit you profile.</label>
+        </languageKey>
+        <languageKey index="dk" type="array">
+            <label index="title">Nyhedsbreve via nyhedder</label>
+            <label index="function1">Oversigt</label>
+            <label index="function2">Vis</label>
+            <label index="function3">Function #3</label>
+            <label index="send">Afsendt</label>
+            <label index="emails">e-mails</label>
+            <label index="scanned">Scannet</label>
+            <label index="messages">Nyhedder</label>
+            <label index="created">Oprettet</label>
+            <label index="mailmessages">beskeder</label>
+            <label index="lastscan">Sidst skannet:</label>
+            <label index="pendingmsg">Usendte nyhedsbreve</label>
+            <label index="invoke">Send nyhedsbreve</label>
+            <label index="start">Start</label>
+            <label index="end">Slut</label>
+            <label index="unsend">Afventer</label>
+            <label index="markall">Makér alle som sendt (slet job)</label>
+            <label index="unsendnews">Usendte nyheder</label>
+            <label index="createmsg">Opret nyhedsbreve</label>
+            <label index="newstitle">Titel</label>
+            <label index="datetime">Tidspunkt</label>
+            <label index="readmore">[Læs mere]</label>
+            <label index="catcount">Kategorier</label>
+            <label index="nextscan">Næste skan</label>
+            <label index="nocat">Medtages ikke, er ikke tildelt en kategori</label>
+            <label index="catmsg">Flaget &quot;Benyt kategorier&quot; er aktivt i nyhedsbrev kontrol. Nyheder uden kategorier medtages ikke i nyhedsbreve. Dette flag skal kun være sat hvis FE brugere skal modtage personlige nyhedsbreve baseret på nyhedskategorier</label>
+            <label index="starttime">Medtages</label>
+            <label index="editprofile">[Rediger profil]</label>
+            <label index="signoff">Du modtager denne meddelse, fordi du har valgt at modtage nyheder fra ###domain### ønsker du ikke længere at modtage nyheder kan du ændre din profil ved at klikke på nedenstående link.</label>
+        </languageKey>
+        <languageKey index="de" type="array">
+            <label index="title">Newsletter gesteuert via News</label>
+            <label index="function1">Übersicht</label>
+            <label index="function2">Vorschau</label>
+            <label index="function3">Function #3</label>
+            <label index="send">Fertig</label>
+            <label index="emails">E-Mails</label>
+            <label index="scanned">Bearbeitet</label>
+            <label index="messages">Newsletter</label>
+            <label index="created">Erzeugt</label>
+            <label index="mailmessages">Nachrichten</label>
+            <label index="lastscan">Letzer Durchlauf: </label>
+            <label index="pendingmsg">Nachrichten in Warteschleife</label>
+            <label index="invoke">Newsletter senden</label>
+            <label index="start">Start</label>
+            <label index="end">Ende</label>
+            <label index="unsend">In Warteschleife</label>
+            <label index="markall">Alle als gesendet markieren (Auftrag löschen)</label>
+            <label index="unsendnews">News in Warteschleife</label>
+            <label index="createmsg">Newsletter erzeugen</label>
+            <label index="nextscan">Nächster Durchlauf</label>
+            <label index="nocat">Nicht enthalten, keine zugeordneten Kategorien</label>
+            <label index="catmsg">Der Schalter &quot;Kategorien verwenden&quot; ist in der Newsletter-Steuerung aktiviert. Das verhindert das Senden von Newsmeldungen, die keiner Kategorie zugeordnet sind. Dieser Schalter sollte nur dann aktiv sein, wenn FE-User personalisierte Newsletter empfangen sollen, die sich an Kategorien orientieren.</label>
+            <label index="starttime">Einschließen</label>
+            <label index="newstitle">Thema</label>
+            <label index="datetime">Zeit</label>
+            <label index="readmore">[Weiterlesen]</label>
+            <label index="editprofile">[Profil bearbeiten]</label>
+            <label index="signoff">Sie haben diesen Newsletter erhalten, da Sie sich dafür auf unserer website ###domain### registriert haben. Falls Sie den Newsletter abbestellen möchten, klicken Sie bitte auf den den nachstehenden Link, um Ihr Profil dementsprechend zu bearbeiten.</label>
+        </languageKey>
+        <languageKey index="no" type="array">
+        </languageKey>
+        <languageKey index="it" type="array">
+        </languageKey>
+        <languageKey index="fr" type="array">
+        </languageKey>
+        <languageKey index="es" type="array">
+        </languageKey>
+        <languageKey index="nl" type="array">
+        </languageKey>
+        <languageKey index="cz" type="array">
+        </languageKey>
+        <languageKey index="pl" type="array">
+        </languageKey>
+        <languageKey index="si" type="array">
+        </languageKey>
+        <languageKey index="fi" type="array">
+        </languageKey>
+        <languageKey index="tr" type="array">
+        </languageKey>
+        <languageKey index="se" type="array">
+        </languageKey>
+        <languageKey index="pt" type="array">
+        </languageKey>
+        <languageKey index="ru" type="array">
+        </languageKey>
+        <languageKey index="ro" type="array">
+        </languageKey>
+        <languageKey index="ch" type="array">
+        </languageKey>
+        <languageKey index="sk" type="array">
+        </languageKey>
+        <languageKey index="lt" type="array">
+        </languageKey>
+        <languageKey index="is" type="array">
+        </languageKey>
+        <languageKey index="hr" type="array">
+        </languageKey>
+        <languageKey index="hu" type="array">
+        </languageKey>
+        <languageKey index="gl" type="array">
+        </languageKey>
+        <languageKey index="th" type="array">
+        </languageKey>
+        <languageKey index="gr" type="array">
+        </languageKey>
+        <languageKey index="hk" type="array">
+        </languageKey>
+        <languageKey index="eu" type="array">
+        </languageKey>
+        <languageKey index="bg" type="array">
+        </languageKey>
+        <languageKey index="br" type="array">
+        </languageKey>
+        <languageKey index="et" type="array">
+        </languageKey>
+        <languageKey index="ar" type="array">
+        </languageKey>
+        <languageKey index="he" type="array">
+        </languageKey>
+        <languageKey index="ua" type="array">
+        </languageKey>
+        <languageKey index="lv" type="array">
+        </languageKey>
+        <languageKey index="jp" type="array">
+        </languageKey>
+        <languageKey index="vn" type="array">
+        </languageKey>
+        <languageKey index="ca" type="array">
+        </languageKey>
+        <languageKey index="ba" type="array">
+        </languageKey>
+        <languageKey index="kr" type="array">
+        </languageKey>
+    </data>
+    <orig_hash type="array">
+        <languageKey index="default" type="array">
+            <label index="title" type="integer">245734889</label>
+            <label index="function1" type="integer">62421031</label>
+            <label index="function2" type="integer">52420219</label>
+            <label index="function3" type="integer">258031659</label>
+            <label index="send" type="integer">261264990</label>
+            <label index="emails" type="integer">74352996</label>
+            <label index="scanned" type="integer">99809479</label>
+            <label index="messages" type="integer">218418422</label>
+            <label index="created" type="integer">15527604</label>
+            <label index="mailmessages" type="integer">233244984</label>
+            <label index="lastscan" type="integer">160618983</label>
+            <label index="pendingmsg" type="integer">177119467</label>
+            <label index="invoke" type="integer">252789552</label>
+            <label index="start" type="integer">174138022</label>
+            <label index="end" type="integer">133177761</label>
+            <label index="unsend" type="integer">47267318</label>
+            <label index="markall" type="integer">253873702</label>
+            <label index="unsendnews" type="integer">248702</label>
+            <label index="createmsg" type="integer">204005915</label>
+            <label index="newstitle" type="integer">39326399</label>
+            <label index="datetime" type="integer">175559919</label>
+            <label index="readmore" type="integer">9487620</label>
+            <label index="catcount" type="integer">183613834</label>
+            <label index="nextscan" type="integer">96021104</label>
+            <label index="nocat" type="integer">125195558</label>
+            <label index="catmsg" type="integer">123496502</label>
+            <label index="starttime" type="integer">256733862</label>
+            <label index="editprofile" type="integer">20950002</label>
+            <label index="signoff" type="integer">92065398</label>
+        </languageKey>
+        <languageKey index="dk" type="array">
+            <label index="title" type="integer">245734889</label>
+            <label index="function1" type="integer">62421031</label>
+            <label index="function2" type="integer">52420219</label>
+            <label index="function3" type="integer">258031659</label>
+            <label index="send" type="integer">261264990</label>
+            <label index="emails" type="integer">74352996</label>
+            <label index="scanned" type="integer">99809479</label>
+            <label index="messages" type="integer">218418422</label>
+            <label index="created" type="integer">15527604</label>
+            <label index="mailmessages" type="integer">233244984</label>
+            <label index="lastscan" type="integer">160618983</label>
+            <label index="pendingmsg" type="integer">177119467</label>
+            <label index="invoke" type="integer">252789552</label>
+            <label index="start" type="integer">174138022</label>
+            <label index="end" type="integer">133177761</label>
+            <label index="unsend" type="integer">47267318</label>
+            <label index="markall" type="integer">253873702</label>
+            <label index="unsendnews" type="integer">248702</label>
+            <label index="createmsg" type="integer">204005915</label>
+            <label index="newstitle" type="integer">39326399</label>
+            <label index="datetime" type="integer">175559919</label>
+            <label index="readmore" type="integer">9487620</label>
+            <label index="catcount" type="integer">183613834</label>
+            <label index="nextscan" type="integer">96021104</label>
+            <label index="nocat" type="integer">125195558</label>
+            <label index="catmsg" type="integer">123496502</label>
+            <label index="starttime" type="integer">256733862</label>
+            <label index="editprofile" type="integer">20950002</label>
+            <label index="signoff" type="integer">92065398</label>
+        </languageKey>
+        <languageKey index="de" type="array">
+            <label index="title" type="integer">245734889</label>
+            <label index="function1" type="integer">62421031</label>
+            <label index="function2" type="integer">52420219</label>
+            <label index="function3" type="integer">258031659</label>
+            <label index="send" type="integer">261264990</label>
+            <label index="emails" type="integer">74352996</label>
+            <label index="scanned" type="integer">99809479</label>
+            <label index="messages" type="integer">218418422</label>
+            <label index="created" type="integer">15527604</label>
+            <label index="mailmessages" type="integer">233244984</label>
+            <label index="lastscan" type="integer">160618983</label>
+            <label index="pendingmsg" type="integer">177119467</label>
+            <label index="invoke" type="integer">252789552</label>
+            <label index="start" type="integer">174138022</label>
+            <label index="end" type="integer">133177761</label>
+            <label index="unsend" type="integer">47267318</label>
+            <label index="markall" type="integer">253873702</label>
+            <label index="unsendnews" type="integer">248702</label>
+            <label index="createmsg" type="integer">204005915</label>
+            <label index="nextscan" type="integer">96021104</label>
+            <label index="nocat" type="integer">125195558</label>
+            <label index="catmsg" type="integer">123496502</label>
+            <label index="starttime" type="integer">256733862</label>
+            <label index="newstitle" type="integer">39326399</label>
+            <label index="datetime" type="integer">175559919</label>
+            <label index="readmore" type="integer">9487620</label>
+            <label index="editprofile" type="integer">20950002</label>
+            <label index="signoff" type="integer">92065398</label>
+        </languageKey>
+        <languageKey index="no" type="array">
+        </languageKey>
+        <languageKey index="it" type="array">
+        </languageKey>
+        <languageKey index="fr" type="array">
+        </languageKey>
+        <languageKey index="es" type="array">
+        </languageKey>
+        <languageKey index="nl" type="array">
+        </languageKey>
+        <languageKey index="cz" type="array">
+        </languageKey>
+        <languageKey index="pl" type="array">
+        </languageKey>
+        <languageKey index="si" type="array">
+        </languageKey>
+        <languageKey index="fi" type="array">
+        </languageKey>
+        <languageKey index="tr" type="array">
+        </languageKey>
+        <languageKey index="se" type="array">
+        </languageKey>
+        <languageKey index="pt" type="array">
+        </languageKey>
+        <languageKey index="ru" type="array">
+        </languageKey>
+        <languageKey index="ro" type="array">
+        </languageKey>
+        <languageKey index="ch" type="array">
+        </languageKey>
+        <languageKey index="sk" type="array">
+        </languageKey>
+        <languageKey index="lt" type="array">
+        </languageKey>
+        <languageKey index="is" type="array">
+        </languageKey>
+        <languageKey index="hr" type="array">
+        </languageKey>
+        <languageKey index="hu" type="array">
+        </languageKey>
+        <languageKey index="gl" type="array">
+        </languageKey>
+        <languageKey index="th" type="array">
+        </languageKey>
+        <languageKey index="gr" type="array">
+        </languageKey>
+        <languageKey index="hk" type="array">
+        </languageKey>
+        <languageKey index="eu" type="array">
+        </languageKey>
+        <languageKey index="bg" type="array">
+        </languageKey>
+        <languageKey index="br" type="array">
+        </languageKey>
+        <languageKey index="et" type="array">
+        </languageKey>
+        <languageKey index="ar" type="array">
+        </languageKey>
+        <languageKey index="he" type="array">
+        </languageKey>
+        <languageKey index="ua" type="array">
+        </languageKey>
+        <languageKey index="lv" type="array">
+        </languageKey>
+        <languageKey index="jp" type="array">
+        </languageKey>
+        <languageKey index="vn" type="array">
+        </languageKey>
+        <languageKey index="ca" type="array">
+        </languageKey>
+        <languageKey index="ba" type="array">
+        </languageKey>
+        <languageKey index="kr" type="array">
+        </languageKey>
+    </orig_hash>
+    <orig_text type="array">
+        <languageKey index="default" type="array">
+        </languageKey>
+        <languageKey index="dk" type="array">
+        </languageKey>
+        <languageKey index="de" type="array">
+        </languageKey>
+        <languageKey index="no" type="array">
+        </languageKey>
+        <languageKey index="it" type="array">
+        </languageKey>
+        <languageKey index="fr" type="array">
+        </languageKey>
+        <languageKey index="es" type="array">
+        </languageKey>
+        <languageKey index="nl" type="array">
+        </languageKey>
+        <languageKey index="cz" type="array">
+        </languageKey>
+        <languageKey index="pl" type="array">
+        </languageKey>
+        <languageKey index="si" type="array">
+        </languageKey>
+        <languageKey index="fi" type="array">
+        </languageKey>
+        <languageKey index="tr" type="array">
+        </languageKey>
+        <languageKey index="se" type="array">
+        </languageKey>
+        <languageKey index="pt" type="array">
+        </languageKey>
+        <languageKey index="ru" type="array">
+        </languageKey>
+        <languageKey index="ro" type="array">
+        </languageKey>
+        <languageKey index="ch" type="array">
+        </languageKey>
+        <languageKey index="sk" type="array">
+        </languageKey>
+        <languageKey index="lt" type="array">
+        </languageKey>
+        <languageKey index="is" type="array">
+        </languageKey>
+        <languageKey index="hr" type="array">
+        </languageKey>
+        <languageKey index="hu" type="array">
+        </languageKey>
+        <languageKey index="gl" type="array">
+        </languageKey>
+        <languageKey index="th" type="array">
+        </languageKey>
+        <languageKey index="gr" type="array">
+        </languageKey>
+        <languageKey index="hk" type="array">
+        </languageKey>
+        <languageKey index="eu" type="array">
+        </languageKey>
+        <languageKey index="bg" type="array">
+        </languageKey>
+        <languageKey index="br" type="array">
+        </languageKey>
+        <languageKey index="et" type="array">
+        </languageKey>
+        <languageKey index="ar" type="array">
+        </languageKey>
+        <languageKey index="he" type="array">
+        </languageKey>
+        <languageKey index="ua" type="array">
+        </languageKey>
+        <languageKey index="lv" type="array">
+        </languageKey>
+        <languageKey index="jp" type="array">
+        </languageKey>
+        <languageKey index="vn" type="array">
+        </languageKey>
+        <languageKey index="ca" type="array">
+        </languageKey>
+        <languageKey index="ba" type="array">
+        </languageKey>
+        <languageKey index="kr" type="array">
+        </languageKey>
+    </orig_text>
+</T3locallang>

@@ -34,7 +34,7 @@ require_once (PATH_t3lib."class.t3lib_htmlmail.php");
 
 class tx_auxnewsmailer_pi1 extends tslib_pibase {
 	var $prefixId = "tx_auxnewsmailer_pi1";		// Same as class name
-	var $scriptRelPath = "pi1/class.tx_auxnewsmailer_pi1.ph	p";	// Path to this script relative to the extension dir.
+	var $scriptRelPath = "pi1/class.tx_auxnewsmailer_pi1.php";	// Path to this script relative to the extension dir.
 	var $extKey = "aux_newsmailer";	// The extension key.
 	var $lConf=array();
 	var $pidQuery='';
@@ -221,8 +221,8 @@ class tx_auxnewsmailer_pi1 extends tslib_pibase {
 		//Clear the users previous selections, if not dublicates will appear
 		$sql="delete from tx_auxnewsmailer_usercat WHERE pid=".$this->lConf['userPID']." and iduser=".$GLOBALS['TSFE']->fe_user->user['uid'];
 
-		$dbres = mysql(TYPO3_db,$sql) or $content .= "Error Mysql:".mysql_error()."<br>";
-
+		//$dbres = mysql(TYPO3_db,$sql) or $content .= "Error Mysql:".mysql_error()."<br>";
+		$dbres = mysql_query($sql,TYPO3_db) or $content .= "Error Mysql:".mysql_error()."<br>";
 		$newsletter=0;
 		$html=0;
 

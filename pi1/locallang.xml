@@ -29,5 +29,12 @@
             <label index="usehtml">HTML-Format verwenden (Newsletter mit Formatierung und Bildern)</label>
             <label index="cat">Kategorien</label>
 		</languageKey>
+		<languageKey index="pl" type="array">
+			<label index="submit">Zapisz</label>
+			<label index="usenewsletters">Chcę otrzymywać newslettery</label>
+			<label index="usehtml">Wyślij newsletter w formacie HTML (z formatowanem i obrazkami)</label>
+			<label index="cat">Kategorie</label>
+		</languageKey>
+
 	</data>
 </T3locallang>

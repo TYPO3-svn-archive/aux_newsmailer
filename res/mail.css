@@ -9,7 +9,7 @@ font-size:12px;
 }
 
 .pageheader{
-  	height:10;
+  	
   	width:400;
   	text-align:left;
 }
@@ -29,11 +29,11 @@ font-size:12px;
 .profilelink {clear:both}
 
 .newsmailitem {padding:6px;margin:3px;clear:both;text-align:left;border-bottom:1px solid #000000}
-.newsitemtext {clear:both;float:left}
+.newsitemtext {clear:both;}
 .newsmaildate {font-size:80%}
 .newsmailtitle {font-weight:bold;margin-bottom:6px}
 .newsmailshort {margin-bottom:3px}
-.newsmailimage {float:right;margin:3px}
+.newsmailimage {float:left;margin:3px}
 .newsmailbody {float:left}
 .newsmaillink {float:left}
 .ffclear {clear:both}

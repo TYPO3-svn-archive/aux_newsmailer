@@ -204,10 +204,10 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 
 		if ((!$preview)&&($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))) {
 			$idmsg=$row['uid'];
-		}
-		else{
+		} else{
 			$plain='';
             $html='';
+			$resources=array();
 			if ($newslist){
 
 				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
@@ -218,21 +218,23 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 	                'datetime',
 	                ''
 	            );
+				
 	            while($newsrow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)){
 
 
 					$plain.=$this->formatPlain($ctrl,$newsrow);
-					$html.=$this->formatHTML($ctrl,$newsrow);
+					$html.=$this->formatHTML($ctrl,$newsrow,$resources);
 				}
 			}
-			$plain=$this->createNewsLetter($ctrl,$plain,'plain');
-			$html=$this->createNewsLetter($ctrl,$html,'html');
+			$plain=$this->createNewsLetter($ctrl,$plain,'plain',$resources);
+			$html=$this->createNewsLetter($ctrl,$html,'html',$resources);
 			if (!$preview){
 				$insertArray = array(
 			    	'msgsignature'=>md5($newslist),
 					'plaintext'=>$plain,
 	   				'htmltext' =>$html,
 	   				'idctrl'=>$ctrl['uid'],
+					'resources'=>serialize($resources)
 
 
 				);
@@ -240,6 +242,13 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 
 				$res = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_auxnewsmailer_msglist', $insertArray);
 				$idmsg=$GLOBALS['TYPO3_DB']->sql_insert_id();
+			} else if ($preview=='html') {
+				$marker=array();
+				foreach ($resources as $i=>$res){
+					$marker['###RES_'.$i.'###']=$res;
+				}
+				$html=$this->cObj->substituteMarkerArray($html,$marker);
+				
 			}
 		}
 
@@ -265,7 +274,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 	 * @param	array		$news: row from tt_news table.
 	 * @return	string		newsitem html formmated.
 	 */
-	function formatHTML($ctrl,$news){
+	function formatHTML($ctrl,$news,&$resources){
 		global $LANG;
 
 
@@ -278,8 +287,15 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 		$result.='<div class="newsmailitem"">';
 
 		$result.='	<div class="newsitemtext">';
-		if (t3lib_div::inlist($showitems,'2'))
-			$result.='	<div class="newsmailimage">'.$this->getImage($image,$ctrl['listimagew'],$ctrl['listimageh']).'</div>';
+		if (t3lib_div::inlist($showitems,'2')){
+			$image=$this->getImage($image,$ctrl['listimagew'],$ctrl['listimageh']);
+			$resources[]=$image['url'];
+			$resID=count($resources)-1;
+			$tag=str_replace('###URL###','###RES_'.$resID.'###',$image['tag']);
+			
+			
+			$result.='	<div class="newsmailimage">'.$tag.'</div>';
+		}
 		if (t3lib_div::inlist($showitems,'1'))
 			$result.='		<div class="newsmailtitle">'.$news['title'].'</div>';
 		if (t3lib_div::inlist($showitems,'4'))
@@ -333,7 +349,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 	 * @param	string		$type: the encoding of the newsletter can be 'plain' or 'html'
 	 * @return	string		The compleate message
 	 */
-	function createNewsLetter($ctrl,$news,$type='html'){
+	function createNewsLetter($ctrl,$news,$type='html',&$resources){
 		global $LANG;
 
 		$file=$ctrl['template'];
@@ -343,7 +359,8 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 		$stylesheet=$ctrl['stylesheet'];
 	  	if (!$stylesheet)
 	  		$stylesheet='../res/mail.css';
-			$templateCode = t3lib_div::getURL($file);
+		
+		$templateCode = t3lib_div::getURL($file);
 
 		if ($type=='html')
 			$templateMarker = '###HTMLMAIL###';
@@ -355,8 +372,19 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 		$marker=array();
 		$wrapped=array();
 		$marker['###DATE###']=strftime('%d %m %y %H:%M', time());
-		$marker['###CSS###']=$stylesheet;
-		$marker['###IMAGE###']=$this->getImage($ctrl['image'],$ctrl['imagew'],$ctrl['imageh']);
+		
+		$image=$this->getImage($ctrl['image'],$ctrl['imagew'],$ctrl['imageh']);
+		$resources[]=$image['url'];
+		$resID=count($resources)-1;
+		$marker['###IMAGE###']=str_replace('###URL###','###RES_'.$resID.'###',$image['tag']);
+		//$marker['###IMAGE###']=$this->getImage($ctrl['image'],$ctrl['imagew'],$ctrl['imageh'],$preview);
+		
+		if ($type=='html'){
+			$resources[]=$stylesheet;
+			$resID=count($resources)-1;
+			$marker['###CSS###']='###RES_'.$resID.'###';
+		}
+		
 		$marker['###TITLE###']=$ctrl['subject'];
 
 		if ($type=='html')
@@ -528,6 +556,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 		//$newsinfo['title']=$row['title'];
 		$newsinfo['plain']=$row['plaintext'];
 		$newsinfo['html']=$row['htmltext'];
+		$newsinfo['resources']=$row['resources'];
 		$newsinfo['template']=$row['template'];
 		$newsinfo['stylesheet']=$row['stylesheet'];
 		$newsinfo['organisation']=$row['organisation'];
@@ -724,6 +753,9 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 			$marker['###orgname###']=$msg['name'];
 			$marker['###org###']=$msg['organisation'];
 			$marker['###domain###']=$msg['orgdomain'];
+			
+			$resources=unserialize($msg['resources']);
+			
 
 			$plain=$this->cObj->substituteMarkerArray($msg['plain'],$marker);
 			$title=$this->cObj->substituteMarkerArray($title,$marker);
@@ -732,10 +764,11 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 				$html=$this->cObj->substituteMarkerArray($msg['html'],$marker);
 			else
 				$html='';
-			$this->domail($userinfo['mail'],$title,$plain,$fromEmail,$fromName,$html);
-			/*$content.='----------------------</br>';
+			$this->domail($userinfo['mail'],$userinfo['name'],$title,$plain,$fromEmail,$fromName,$html,$msg,$resources);
+			$content.='----------------------</br>';
 			$content.=$userinfo['mail'].'</br>';
-			$content.=$msg['plain'].'</br>';*/
+			$content.=$msg['plain'].'</br>';
+			//echo($content);
 			$updateArray=array(
 				'state'=>'2'
 			);
@@ -749,7 +782,8 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 	/**
 	 * Sends a mail
 	 *
-	 * @param	[type]		$email: a-mail address
+	 * @param	[type]		$email: e-mail address
+	 * @param	[type]		$name:  name of reciever
 	 * @param	[type]		$subject: subject of the message
 	 * @param	[type]		$message: the plain version of the message
 	 * @param	[type]		$fromEMail: sender e-mail
@@ -757,43 +791,96 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 	 * @param	[type]		$html: html version of the mail
 	 * @return	void
 	 */
-	function domail($email,$subject,$message,$fromEMail,$fromName,$html='')
+	function domail($email,$name,$subject,$message,$fromEMail,$fromName,$html='',$ctrl,$resources)
 	{
 
-		$cls=t3lib_div::makeInstanceClassName('t3lib_htmlmail');
-
-		if (class_exists($cls))
-		{
-
-			$Typo3_htmlmail = t3lib_div::makeInstance('t3lib_htmlmail');
-			$Typo3_htmlmail->start();
-			$Typo3_htmlmail->useBase64();
-
-			$Typo3_htmlmail->subject = $subject;
-			$Typo3_htmlmail->from_email = $fromEMail;
-			$Typo3_htmlmail->from_name = $fromName;
-			$Typo3_htmlmail->replyto_email = $Typo3_htmlmail->from_email;
-			$Typo3_htmlmail->replyto_name = $Typo3_htmlmail->from_name;
-			$Typo3_htmlmail->organisation = '';
-			$Typo3_htmlmail->priority = 3;
-
-			$Typo3_htmlmail->addPlain($message);
-			if (trim($html)) {
-				$Typo3_htmlmail->theParts['html']['content'] = $html;
-				$Typo3_htmlmail->theParts['html']['path'] = '';
-				$Typo3_htmlmail->extractMediaLinks();
-				$Typo3_htmlmail->extractHyperLinks();
-				$Typo3_htmlmail->fetchHTMLMedia();
-				$Typo3_htmlmail->substMediaNamesInHTML(0); // 0 = relative
-				$Typo3_htmlmail->substHREFsInHTML();
-				$Typo3_htmlmail->setHTML($Typo3_htmlmail->encodeMsg($Typo3_htmlmail->theParts['html']['content']));
+		$mail = t3lib_div::makeInstance('t3lib_mail_Message');
+		if ($mail){
+			$mail->setFrom(array($fromEMail => $fromMame));
+			$mail->setTo(array($email => $name));
+			$mail->setSubject($subject);
+			
+			if ($html){
+				/*$stylesheetFile=$ctrl['stylesheet'];
+				if (!$stylesheetFile)
+					$stylesheetFile='../res/mail.css';
+				
+				$stylesheet=file_get_contents($stylesheetFile);
+				$cidStylesheet = $mail->embed(Swift_Image::newInstance($stylesheet, 'mail.css', 'text/css'));
+				$marker=array();
+				$marker['###CSS###']=$cidStylesheet;
+				$marker['###IMAGE###']='';*/
+				
+				//$i=0;
+				foreach ($resources as $i=>$res){
+					$resData=file_get_contents($res);
+					$info = pathinfo($res);
+					$cidRes=$mail->embed(Swift_Image::newInstance($resData, $info['filename'].'.'.$info['extension'], 'text/css'));
+					$marker['###RES_'.$i.'###']=$cidRes;
+					//$i++;
+				}
+								
+				/*if ($ctrl['image']){
+					$image=$this->getImage($ctrl['image'],$ctrl['imagew'],$ctrl['imageh']);
+					$imageData=file_get_contents($image['url']);
+					$info = pathinfo($image['url']);
+					$cidImage=$mail->embed(Swift_Image::newInstance($imageData, $info['filename'].'.'.$info['extension'], 'text/css'));
+					$tag=str_replace('###URL###',$cidImage,$image['tag']);
+					$marker['###IMAGE###']=$tag;
+				}*/
+				
+				
+		//print_r($cid);		
+				
+		//print_r($stylesheet);		
+				$html=$this->cObj->substituteMarkerArray($html,$marker);
+				
+				$mail->setBody($html, 'text/html');
+				$mail->addPart($message, 'text/plain');
+				
+				
+				//$mail->addPart($stylesheet, 'text/css');
+			} else {
+				$mail->setBody($message);
 			}
+			$mail->send();
+		} else {
+			
+			$cls=t3lib_div::makeInstanceClassName('t3lib_htmlmail');
+
+			if (class_exists($cls))
+			{
+
+				$Typo3_htmlmail = t3lib_div::makeInstance('t3lib_htmlmail');
+				$Typo3_htmlmail->start();
+				//$Typo3_htmlmail->useBase64();
+
+				$Typo3_htmlmail->subject = $subject;
+				$Typo3_htmlmail->from_email = $fromEMail;
+				$Typo3_htmlmail->from_name = $fromName;
+				$Typo3_htmlmail->replyto_email = $Typo3_htmlmail->from_email;
+				$Typo3_htmlmail->replyto_name = $Typo3_htmlmail->from_name;
+				$Typo3_htmlmail->organisation = '';
+				$Typo3_htmlmail->priority = 3;
+
+				$Typo3_htmlmail->addPlain($message);
+				if (trim($html)) {
+					$Typo3_htmlmail->theParts['html']['content'] = $html;
+					$Typo3_htmlmail->theParts['html']['path'] = '';
+					$Typo3_htmlmail->extractMediaLinks();
+					$Typo3_htmlmail->extractHyperLinks();
+					$Typo3_htmlmail->fetchHTMLMedia();
+					$Typo3_htmlmail->substMediaNamesInHTML(0); // 0 = relative
+					$Typo3_htmlmail->substHREFsInHTML();
+					$Typo3_htmlmail->setHTML($Typo3_htmlmail->encodeMsg($Typo3_htmlmail->theParts['html']['content']));
+				}
 
 
-			$Typo3_htmlmail->setHeaders();
-			$Typo3_htmlmail->setContent();
-			$Typo3_htmlmail->setRecipient(explode(',', $email));
-			$Typo3_htmlmail->sendtheMail();
+				$Typo3_htmlmail->setHeaders();
+				$Typo3_htmlmail->setContent();
+				$Typo3_htmlmail->setRecipient(explode(',', $email));
+				$Typo3_htmlmail->sendtheMail();
+			}
 		}
 	}
 
@@ -844,13 +931,13 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 	 * @param	int			$width: width of the image
 	 * @return	string		Fully qualyfied image tag
 	 */
-	function getImage($file,$height,$width) {
+	function getImage($file,$width,$height,$preview=false) {
 		// overwrite image sizes from TS with the values from the content-element if they exist.
 		if ($file=='')
 			return $file;
 
 
-		$theImgCode = '';
+		//$theImgCode = '';
 		//$imgs = t3lib_div::trimExplode(',', $row['image'], 1);
 		//$imgsCaptions = explode(chr(10), $row['imagecaption']);
 		//$imgsAltTexts = explode(chr(10), $row['imagealttext']);
@@ -882,11 +969,20 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 
 
 		//$theImgCode .= $this->local_cObj->IMAGE($lConf['image.']);
-		$theImgCode.= '<img src="'. $url .'" border="0"/>';
+		if ($preview){
+			$theImgCode= '<img src="'. $url .'" border="0"/>';
+			return $theImgCode;
+		} else{
+			$theImgCode=array();
+			$theImgCode['tag']= '<img src="###URL###" style="height:'.$ingInfo[0].' px" border="0"/>';
+			$theImgCode['url']=$url;
+			return $theImgCode;
+		}
+		
 
 
 
-		return $theImgCode;
+		
 	}
 
 

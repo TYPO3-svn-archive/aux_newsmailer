@@ -47,6 +47,7 @@ class tx_auxnewsmailer_pi1 extends tslib_pibase {
 	 * @return	string		The plugin result that shuld be included on the page.
 	 */
 	function main($content,$conf)	{
+		echo('a');
 		$this->init($conf);
 		$GLOBALS["TSFE"]->set_no_cache();
 		//$GLOBALS['TYPO3_DB']->debugOutput=true;

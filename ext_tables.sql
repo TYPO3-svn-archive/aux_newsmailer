@@ -65,6 +65,7 @@ CREATE TABLE tx_auxnewsmailer_msglist (
 	idctrl int(11) DEFAULT '0' NOT NULL,
 	plaintext mediumtext NOT NULL,
 	htmltext mediumtext NOT NULL,
+	resources mediumtext NOT NULL,
 	image varchar(128) DEFAULT '' NOT NULL,
 	msgsignature varchar(128) DEFAULT '' NOT NULL,
 	state int(11) DEFAULT '0' NOT NULL,	

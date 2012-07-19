@@ -337,7 +337,7 @@ class tx_auxnewsmailer_pi1 extends tslib_pibase {
 			  		$domail=2;
 			  	if	($dosms==1)
 			  		$dosms=2;
-			  	$this->setUserCat($usercat['parent'],$idUser,$domail,$dosms);
+			  	$this->setUserCat($usercat['parent'],$iduser,$domail,$dosms);
 			}
 
 		} else{

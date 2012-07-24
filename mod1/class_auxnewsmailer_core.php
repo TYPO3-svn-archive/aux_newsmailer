@@ -796,9 +796,10 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 
 		$mail = t3lib_div::makeInstance('t3lib_mail_Message');
 		if ($mail){
-			$mail->setFrom(array($fromEMail => $fromMame));
+			$mail->setFrom(array($fromEMail => $fromName));
 			$mail->setTo(array($email => $name));
 			$mail->setSubject($subject);
+			$mail->setReturnPath($fromEMail);
 			
 			if ($html){
 				/*$stylesheetFile=$ctrl['stylesheet'];

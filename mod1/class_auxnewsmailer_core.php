@@ -289,10 +289,11 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 		$result.='	<div class="newsitemtext">';
 		if (t3lib_div::inlist($showitems,'2')){
 			$image=$this->getImage($image,$ctrl['listimagew'],$ctrl['listimageh']);
-			$resources[]=$image['url'];
-			$resID=count($resources)-1;
-			$tag=str_replace('###URL###','###RES_'.$resID.'###',$image['tag']);
-			
+			if($image['url']){
+				$resources[]=$image['url'];
+				$resID=count($resources)-1;
+				$tag=str_replace('###URL###','###RES_'.$resID.'###',$image['tag']);
+			}
 			
 			$result.='	<div class="newsmailimage">'.$tag.'</div>';
 		}
@@ -564,6 +565,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 		$newsinfo['name']=$row['name'];
 		$newsinfo['subject']=$row['subject'];
 		$newsinfo['returnmail']=$row['returnmail'];
+	 	$newsinfo['sendermail']=$row['sendermail'];
 		$newsinfo['feprofilepage']=$row['userpage'];
 		$newsinfo['userpid']=$row['userpid'];
 		$newsinfo['image']=$row['image'];
@@ -742,7 +744,8 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 			$msg=$this->getMessageInfo($row['idmsg']);
 
 			$title=$msg['subject'];
-			$fromEmail=$msg['returnmail'];
+			$fromEmail=$msg['sendermail'];
+			$returnMail=$msg['returnmail'];
 			$fromName=$msg['organisation'];
 			if ($fromName!='')
 				$fromName.='-';
@@ -764,7 +767,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 				$html=$this->cObj->substituteMarkerArray($msg['html'],$marker);
 			else
 				$html='';
-			$this->domail($userinfo['mail'],$userinfo['name'],$title,$plain,$fromEmail,$fromName,$html,$msg,$resources);
+			$this->domail($userinfo['mail'],$userinfo['name'],$title,$plain,$fromEmail,$fromName,$html,$msg,$resources,$returnMail);
 			$content.='----------------------</br>';
 			$content.=$userinfo['mail'].'</br>';
 			$content.=$msg['plain'].'</br>';
@@ -789,9 +792,12 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 	 * @param	[type]		$fromEMail: sender e-mail
 	 * @param	[type]		$fromName: sender name
 	 * @param	[type]		$html: html version of the mail
+  	 * @param       [type]          $ctrl: nesmailer control record
+  	 * @param       [type]          $ressources: array of file ressources
+	 * @param	string		$returnMail: return path email for message displayed notifications. (required for swiftmailer and RFC 2822 3.6.2
 	 * @return	void
 	 */
-	function domail($email,$name,$subject,$message,$fromEMail,$fromName,$html='',$ctrl,$resources)
+	function domail($email,$name,$subject,$message,$fromEMail,$fromName,$html='',$ctrl,$resources,$returnMail)
 	{
 
 		$mail = t3lib_div::makeInstance('t3lib_mail_Message');
@@ -799,7 +805,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 			$mail->setFrom(array($fromEMail => $fromName));
 			$mail->setTo(array($email => $name));
 			$mail->setSubject($subject);
-			$mail->setReturnPath($fromEMail);
+			$mail->setReturnPath($returnMail);
 			
 			if ($html){
 				/*$stylesheetFile=$ctrl['stylesheet'];
@@ -814,11 +820,16 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 				
 				//$i=0;
 				foreach ($resources as $i=>$res){
-					$resData=file_get_contents($res);
-					$info = pathinfo($res);
-					$cidRes=$mail->embed(Swift_Image::newInstance($resData, $info['filename'].'.'.$info['extension'], 'text/css'));
-					$marker['###RES_'.$i.'###']=$cidRes;
+					if ($res) { 
+						$resData=file_get_contents($res);
+						$info = pathinfo($res);
+						$cidRes=$mail->embed(Swift_Image::newInstance($resData, $info['filename'].'.'.$info['extension'], 'text/css'));
+						$marker['###RES_'.$i.'###']=$cidRes;
 					//$i++;
+					}
+					else{
+						$marker['###RES_'.$i.'###']="";
+					}
 				}
 								
 				/*if ($ctrl['image']){

@@ -34,6 +34,7 @@
 			<label index="tx_auxnewsmailer_control.organisation">Organization</label>
 			<label index="tx_auxnewsmailer_control.name">Name</label>
 			<label index="tx_auxnewsmailer_control.subject">Subject</label>
+			<label index="tx_auxnewsmailer_control.sendermail">Sender mail</label>			
 			<label index="tx_auxnewsmailer_control.returnmail">Return mail</label>
 			<label index="tx_auxnewsmailer_control.sendtime">Scan time</label>
 			<label index="tx_auxnewsmailer_control.duration.I.0">Monday</label>
@@ -106,6 +107,7 @@
 			<label index="tx_auxnewsmailer_control.organisation">Organisation</label>
 			<label index="tx_auxnewsmailer_control.name">Navn</label>
 			<label index="tx_auxnewsmailer_control.subject">Emne</label>
+			<label index="tx_auxnewsmailer_control.sendermail">Afsenderens e-mail adresse</label>
 			<label index="tx_auxnewsmailer_control.returnmail">Svar e-mail adresse</label>
 			<label index="tx_auxnewsmailer_control.sendtime">Send time</label>
 			<label index="tx_auxnewsmailer_control.duration.I.0">mandag</label>
@@ -174,6 +176,7 @@
 			<label index="tx_auxnewsmailer_control.organisation">Organisation</label>
 			<label index="tx_auxnewsmailer_control.name">Name</label>
 			<label index="tx_auxnewsmailer_control.subject">Betreff</label>
+			<label index="tx_auxnewsmailer_control.sendermail">Absender-Mail-Adresse</label>
 			<label index="tx_auxnewsmailer_control.returnmail">Rücksende-Adresse (E-Mail)</label>
 			<label index="tx_auxnewsmailer_control.sendtime">Sendezeit</label>
 			<label index="tx_auxnewsmailer_control.duration.I.0">Montag</label>
@@ -241,6 +244,7 @@
 			<label index="tx_auxnewsmailer_control.organisation">Organisme</label>
 			<label index="tx_auxnewsmailer_control.name">Nom</label>
 			<label index="tx_auxnewsmailer_control.subject">Sujet</label>
+			<label index="tx_auxnewsmailer_control.sendermail">Courriel de l'expéditeur</label>
 			<label index="tx_auxnewsmailer_control.returnmail">Courriel de retour</label>
 			<label index="tx_auxnewsmailer_control.sendtime">Temps de génération</label>
 			<label index="tx_auxnewsmailer_control.duration.I.0">Lundi</label>
@@ -313,6 +317,7 @@
 			<label index="tx_auxnewsmailer_control.organisation">Organizacja</label>
 			<label index="tx_auxnewsmailer_control.name">Nazwa</label>
 			<label index="tx_auxnewsmailer_control.subject">Temat</label>
+			<label index="tx_auxnewsmailer_control.sendermail">Email nadawcy</label>
 			<label index="tx_auxnewsmailer_control.returnmail">Email zwrotny</label>
 			<label index="tx_auxnewsmailer_control.sendtime">Godzina wysyłki</label>
 			<label index="tx_auxnewsmailer_control.duration.I.0">Poniedziałek</label>
@@ -385,6 +390,7 @@
 			<label index="tx_auxnewsmailer_control.organisation">Organisme</label>
 			<label index="tx_auxnewsmailer_control.name">Nom</label>
 			<label index="tx_auxnewsmailer_control.subject">Sujet</label>
+			<label index="tx_auxnewsmailer_control.sendermail">Courriel de l'expéditeur</label>
 			<label index="tx_auxnewsmailer_control.returnmail">Courriel de retour</label>
 			<label index="tx_auxnewsmailer_control.sendtime">Temps de génération</label>
 			<label index="tx_auxnewsmailer_control.duration.I.0">Lundi</label>

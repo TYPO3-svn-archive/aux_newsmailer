@@ -121,6 +121,7 @@ CREATE TABLE tx_auxnewsmailer_control (
 	name tinytext NOT NULL,
 	subject tinytext NOT NULL,
 	returnmail tinytext NOT NULL,
+	sendermail tinytext NOT NULL,
 	sendtime int(11) DEFAULT '0' NOT NULL,
 	duration blob NOT NULL,
 	folders blob NOT NULL,

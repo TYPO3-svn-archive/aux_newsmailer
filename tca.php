@@ -296,6 +296,15 @@ $TCA["tx_auxnewsmailer_control"] = Array (
 			"config" => Array (
 				"type" => "input",	
 				"size" => "30",
+				"default"=>"no-reply@myorg.com",
+			)
+		),
+		"sendermail" => Array (		
+			"exclude" => 1,		
+			"label" => "LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.sendermail",		
+			"config" => Array (
+				"type" => "input",	
+				"size" => "30",
 				"default"=>"info@myorg.com",
 			)
 		),
@@ -473,7 +482,7 @@ $TCA["tx_auxnewsmailer_control"] = Array (
 		),
 	),
 	"types" => Array (
-		"0" => Array("showitem" => "--div--;LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.template;hidden;;1;;1-1-1, template, stylesheet,lang,image,imagew,imageh,listimagew,listimageh,dateformat,timeformat,showitems, --div--;LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.organisation, organisation, name,subject, returnmail,orgdomain,--div--;LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.settings,usecat,duration,sendtime, lasttime,--div--;LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.ctrlfolders,userpage,userpid,newspage, folders,--div--;LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.text,pretext,posttext")
+		"0" => Array("showitem" => "--div--;LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.template;hidden;;1;;1-1-1, template, stylesheet,lang,image,imagew,imageh,listimagew,listimageh,dateformat,timeformat,showitems, --div--;LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.organisation, organisation, name,subject,sendermail,returnmail,orgdomain,--div--;LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.settings,usecat,duration,sendtime, lasttime,--div--;LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.ctrlfolders,userpage,userpid,newspage, folders,--div--;LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.text,pretext,posttext")
 	),
 	"palettes" => Array (
 		"1" => Array("showitem" => "")

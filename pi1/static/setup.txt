@@ -4,6 +4,8 @@ plugin.tx_auxnewsmailer_pi1 {
 	CMD = 
 	pidList = 
 	recursive = 
+	templateFile = {$plugin.tx_auxnewsmailer_pi1.templateFile}
+   storagePID = {$plugin.tx_auxnewsmailer_pi1.storagePID}
 }
 plugin.tx_auxnewsmailer_pi1.listView {
 	results_at_a_time = 

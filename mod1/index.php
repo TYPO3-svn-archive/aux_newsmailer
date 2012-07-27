@@ -44,7 +44,6 @@ $BE_USER->modAccess($MCONF,1);	// This checks permissions and exits if the users
 
 
 require_once (PATH_t3lib.'class.t3lib_stdgraphic.php');
-require_once (PATH_t3lib.'class.t3lib_htmlmail.php');
 require_once (PATH_site.'typo3/sysext/cms/tslib/class.tslib_content.php');
 
 class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
@@ -137,7 +136,7 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 					</script>
 				';
 
-				$headerSection = $this->doc->getHeader('pages',$this->pageinfo,$this->pageinfo['_thePath']).'<br>'.$LANG->sL('LLL:EXT:lang/locallang_core.php:labels.path').': '.t3lib_div::fixed_lgd_pre($this->pageinfo['_thePath'],50);
+				$headerSection = $this->doc->getHeader('pages',$this->pageinfo,$this->pageinfo['_thePath']).'<br>'.$LANG->sL('LLL:EXT:lang/locallang_core.php:labels.path').': '.t3lib_div::fixed_lgd_cs($this->pageinfo['_thePath'],50);
 
 				$this->content.=$this->doc->startPage($LANG->getLL('title'));
 				$this->content.=$this->doc->header($LANG->getLL('title'));

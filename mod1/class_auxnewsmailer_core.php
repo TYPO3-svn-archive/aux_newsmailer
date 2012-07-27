@@ -27,7 +27,6 @@
  * @author	Tim Wentzlau <tim.wentzlau@auxilior.com>
  */
 require_once (PATH_t3lib.'class.t3lib_stdgraphic.php');
-require_once (PATH_t3lib.'class.t3lib_htmlmail.php');
 require_once (PATH_site.'typo3/sysext/cms/tslib/class.tslib_content.php');
 require_once (PATH_t3lib.'class.t3lib_scbase.php');
 
@@ -857,12 +856,15 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 			}
 			$mail->send();
 		} else {
+			//no swiftmailer available? 
 			
+			//try old htmlmail from typo3 4.5 and below
+			require_once (PATH_t3lib.'class.t3lib_htmlmail.php');
 			$cls=t3lib_div::makeInstanceClassName('t3lib_htmlmail');
 
 			if (class_exists($cls))
 			{
-
+	
 				$Typo3_htmlmail = t3lib_div::makeInstance('t3lib_htmlmail');
 				$Typo3_htmlmail->start();
 				//$Typo3_htmlmail->useBase64();

@@ -730,8 +730,8 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 
         $dbres = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
                 'tx_auxnewsmailer_usrmsg.*',
-                'tx_auxnewsmailer_usrmsg,tx_auxnewsmailer_msglist',
-            	'tx_auxnewsmailer_usrmsg.state=0 and tx_auxnewsmailer_usrmsg.idmsg=tx_auxnewsmailer_msglist.uid '.$wctrl,
+                'tx_auxnewsmailer_usrmsg,tx_auxnewsmailer_msglist, fe_users',
+            	'tx_auxnewsmailer_usrmsg.state=0 and tx_auxnewsmailer_usrmsg.iduser=fe_users.uid and fe_users.disable = 0 and fe_users.deleted = 0 and tx_auxnewsmailer_usrmsg.idmsg=tx_auxnewsmailer_msglist.uid '.$wctrl,
                 '',
                 'idmsg',
                 '0,'.$limit
@@ -856,15 +856,14 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 			}
 			$mail->send();
 		} else {
-			//no swiftmailer available? 
-			
-			//try old htmlmail from typo3 4.5 and below
+	 		// swiftmailer not available? 
 			require_once (PATH_t3lib.'class.t3lib_htmlmail.php');
+		
 			$cls=t3lib_div::makeInstanceClassName('t3lib_htmlmail');
 
 			if (class_exists($cls))
 			{
-	
+
 				$Typo3_htmlmail = t3lib_div::makeInstance('t3lib_htmlmail');
 				$Typo3_htmlmail->start();
 				//$Typo3_htmlmail->useBase64();

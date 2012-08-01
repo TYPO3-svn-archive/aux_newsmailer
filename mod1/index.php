@@ -306,9 +306,9 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 
 
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-                '*',
-                'tx_auxnewsmailer_msglist',
-                'state=0 and idctrl='.$ctrl['uid'],
+                'tx_auxnewsmailer_msglist.*',
+                'tx_auxnewsmailer_msglist, fe_users, tx_auxnewsmailer_usrmsg',
+                'tx_auxnewsmailer_msglist.state=0 and fe_users.disable = 0 and fe_users.deleted = 0 and tx_auxnewsmailer_usrmsg.idmsg=tx_auxnewsmailer_msglist.uid  and tx_auxnewsmailer_usrmsg.iduser=fe_users.uid and idctrl='.$ctrl['uid'],
                 '',
                 '',
 				''
@@ -383,8 +383,8 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 	  	$cnt['sendto']=0;
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
                 'count(idmsg)',
-                'tx_auxnewsmailer_usrmsg',
-                'state=0 and idmsg='.$msg,
+                'tx_auxnewsmailer_usrmsg, fe_users, tx_auxnewsmailer_msglist',
+                'tx_auxnewsmailer_usrmsg.state=0  and fe_users.disable = 0 and fe_users.deleted = 0 and tx_auxnewsmailer_usrmsg.idmsg=tx_auxnewsmailer_msglist.uid  and tx_auxnewsmailer_usrmsg.iduser=fe_users.uid  and idmsg='.$msg,
                 '',
                 '',
 				''
@@ -392,8 +392,8 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 		list($cnt['unsend']) = $GLOBALS['TYPO3_DB']->sql_fetch_row($res);
 	  	$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
                 'count(idmsg)',
-                'tx_auxnewsmailer_usrmsg',
-                'state=2 and idmsg='.$msg,
+                'tx_auxnewsmailer_usrmsg, fe_users, tx_auxnewsmailer_msglist',
+                'tx_auxnewsmailer_usrmsg.state=2  and fe_users.disable = 0 and fe_users.deleted = 0 and tx_auxnewsmailer_usrmsg.idmsg=tx_auxnewsmailer_msglist.uid  and tx_auxnewsmailer_usrmsg.iduser=fe_users.uid  and idmsg='.$msg,
                 '',
                 '',
 				''

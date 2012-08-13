@@ -125,7 +125,7 @@ $TCA["tx_auxnewsmailer_control"] = Array (
 		"iconfile" => t3lib_extMgm::extRelPath($_EXTKEY)."icon_tx_auxnewsmailer_control.gif",
 	),
 	"feInterface" => Array (
-		"fe_admin_fieldList" => "hidden, template, stylesheet, userpage, organisation, name, returnmail, sendtime, duration, folders, lasttime,userpid",
+		"fe_admin_fieldList" => "hidden, template, stylesheet, userpage, organisation, name, returnmail, sendermail, sendtime, duration, folders, lasttime,userpid",
 	)
 );
 

@@ -30,7 +30,11 @@ require_once (PATH_t3lib.'class.t3lib_stdgraphic.php');
 require_once (PATH_site.'typo3/sysext/cms/tslib/class.tslib_content.php');
 require_once (PATH_t3lib.'class.t3lib_scbase.php');
 
-$LANG->includeLLFile('EXT:aux_newsmailer/mod1/locallang.php');
+require_once('conf.php');
+require_once(PATH_site.'typo3/init.php');
+require_once(PATH_site.'typo3/template.php');
+
+$GLOBALS['LANG']->includeLLFile('EXT:aux_newsmailer/mod1/locallang.php');
 
 class tx_auxnewsmailer_core extends t3lib_SCbase {
 	var $pageinfo;
@@ -89,26 +93,31 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 	 * @param	string		$action: -s scans and creates messages. -m mails then next 50 mails pending.
 	 * @return	void		outputs status to stdout.
 	 */
-	function batch($action){
-	  	echo("Auxnewsmailer running in batch mode:\n--------\n");
+	function batch($action = "", $idctrl = 0){
+		$msg = "Auxnewsmailer running in batch mode:\n--------\n";
+
 	  	$this->cObj=t3lib_div::makeInstance("tslib_cObj");
 		//$GLOBALS['TYPO3_DB']->debugOutput=true;
 		
 		$this->inBatch=true;
 		if (($action=='')||($action=='-s')){
-		  	echo("Scanning news:\n");
-	  		echo('  added '.$this->scanNews('email',0)." messages\n");
+		  	$msg.= "Scanning news:\n";
+	  		$msg.= '  added '.$this->scanNews('email',$idctrl)." messages\n";
 	  	}
 	  	if (($action=='')||($action=='-s')){
-		  	echo("Create messages:\n");
-	  		echo('  created: '.$this->mailList(0));
+		  	$msg.="Create messages:\n";
+	  		$msg.='  created: '.$this->mailList($idctrl);
 	  	}
 	  	if (($action=='')||($action=='-m')){
-		  	echo("\nSend e-mails:\n");
-	  		echo('  send: '.$this->sendMail(true));
+		  	$msg.="\nSend e-mails:\n";
+	  		$msg.='  send: '.$this->sendMail(true, $idctrl);
 	  	}
 
-	  	echo("\n-------\nBatch done\n");
+	  	$msg.= "\n-------\nBatch done\n";
+
+		
+
+		return $msg;
 	}
 
 	/**
@@ -350,16 +359,20 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 	 * @return	string		The compleate message
 	 */
 	function createNewsLetter($ctrl,$news,$type='html',&$resources){
-		global $LANG;
+		//global $LANG;
 
 		$file=$ctrl['template'];
-	  	if (!$file)
-			$file='../res/template.tmpl';
+	  	if (!$file){
+			$file= t3lib_extMgm::extPath("aux_newsmailer") . "/res/template.tmpl";
+		//	$file='../res/template.tmpl';
+		}
 
 		$stylesheet=$ctrl['stylesheet'];
-	  	if (!$stylesheet)
-	  		$stylesheet='../res/mail.css';
-		
+	  	if (!$stylesheet){
+	  		//$file= t3lib_extMgm::extPath("aux_newsmailer") . '/res/mail.css';
+			$stylesheet='../res/mail.css';
+		}
+
 		$templateCode = t3lib_div::getURL($file);
 
 		if ($type=='html')
@@ -395,9 +408,9 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 			$marker['###NEWSFOOTER###']=nl2br($ctrl['posttext']);
 		else
 			$marker['###NEWSFOOTER###']=$ctrl['posttext'];
-		$marker['###PROFILEMESSAGE###']=$LANG->getLL('signoff');
+		$marker['###PROFILEMESSAGE###']= $GLOBALS['LANG']->getLL('signoff');
 		if ($type=='html')
-			$marker['###PROFILELINK###'] ='<a  href="http://'.$ctrl['orgdomain'].'/index.php?id='.$ctrl['userpage'].'">'.$LANG->getLL('editprofile').'</a>';
+			$marker['###PROFILELINK###'] ='<a  href="http://'.$ctrl['orgdomain'].'/index.php?id='.$ctrl['userpage'].'">'.$GLOBALS['LANG']->getLL('editprofile').'</a>';
 		else
 			$marker['###PROFILELINK###'] ='http://'.$ctrl['orgdomain'].'/index.php?id='.$ctrl['userpage'];
 		$marker['###NEWSLIST###']=$news;
@@ -721,11 +734,17 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 	 * @param	boolean		$inbatch: if true the function is called by the cron job
 	 * @return	int		number of mails send.
 	 */
-	function sendMail($inbatch=false){
+	function sendMail($inbatch=false, $idctrl=0){
 		if (!$inbatch){
 			$ctrl=$this->loadControl();
 			$wctrl='and tx_auxnewsmailer_msglist.idctrl='.$ctrl['uid'];
 		}
+		else{
+			$ctrl=$this->loadControl($idctrl);
+                        $wctrl='and tx_auxnewsmailer_msglist.idctrl='.$ctrl['uid'];
+
+		}
+	
 		$limit=50;
 
         $dbres = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
@@ -971,10 +990,12 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 		$uploadfolder=PATH_site.'/uploads/pics/'.$file;
 
         if (!@is_file($uploadfolder))        die('Error: '.$uploadfolder.' was not a file');
-		$imgObj->dontCheckForExistingTempFile=true;
+		
+		//$imgObj->dontCheckForExistingTempFile=true; //should be true only for debugging
 		$imgInfo = $imgObj->imageMagickConvert($uploadfolder,'jpg',$width.' m',$height.' m','','',1);
 
-		$url='../../../../'.substr($imgInfo[3],strlen(PATH_site));
+		//$url='../../../../'.substr($imgInfo[3],strlen(PATH_site));
+		$url=$imgInfo[3];
 
 		$lConf['image.']['file'] =$url;
 		$lConf['image.']['altText'] = '';
@@ -987,7 +1008,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 			return $theImgCode;
 		} else{
 			$theImgCode=array();
-			$theImgCode['tag']= '<img src="###URL###" style="height:'.$ingInfo[0].' px" border="0"/>';
+			$theImgCode['tag']= '<img src="###URL###" style="height:'.$imgInfo[0].' px" border="0"/>';
 			$theImgCode['url']=$url;
 			return $theImgCode;
 		}

@@ -296,18 +296,18 @@ $TCA["tx_auxnewsmailer_control"] = Array (
 			"config" => Array (
 				"type" => "input",	
 				"size" => "30",
-				"default"=>"no-reply@myorg.com",
-			)
-		),
-		"sendermail" => Array (		
-			"exclude" => 1,		
-			"label" => "LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.sendermail",		
-			"config" => Array (
-				"type" => "input",	
-				"size" => "30",
 				"default"=>"info@myorg.com",
 			)
 		),
+		 "sendermail" => Array (
+                        "exclude" => 1,
+                        "label" => "LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.sendermail",
+                        "config" => Array (
+                                "type" => "input",
+                                "size" => "30",
+                                "default"=>"info@myorg.com",
+                        )
+                ),
 		"sendtime" => Array (		
 			"exclude" => 1,		
 			"label" => "LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.sendtime",		
@@ -447,11 +447,11 @@ $TCA["tx_auxnewsmailer_control"] = Array (
 			"config" => Array (
 				"type" => "select",	
 				"items" => array(
-								Array("LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.showitems.I.0", "1"),
-								Array("LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.showitems.I.1", "2"),
-								Array("LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.showitems.I.2", "3"),
-								Array("LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.showitems.I.3", "4"),
-								Array("LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.showitems.I.4", "5"),
+					Array("LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.showitems.I.0", "1"),
+					Array("LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.showitems.I.1", "2"),
+					Array("LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.showitems.I.2", "3"),
+					Array("LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.showitems.I.3", "4"),
+					Array("LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.showitems.I.4", "5"),
 				),
 				"size"=>10,
 				"maxitems"=>20,

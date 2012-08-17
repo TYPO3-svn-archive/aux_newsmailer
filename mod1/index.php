@@ -35,8 +35,7 @@ unset($MCONF);
 require ('conf.php');
 require ($BACK_PATH.'init.php');
 require ($BACK_PATH.'template.php');
-$LANG->includeLLFile('EXT:aux_newsmailer/mod1/locallang.php');
-#include ('locallang.php');
+$LANG->includeLLFile('EXT:aux_newsmailer/mod1/locallang.xml');
 require_once ('class_auxnewsmailer_core.php');
 
 $BE_USER->modAccess($MCONF,1);	// This checks permissions and exits if the users has no permission for entry.
@@ -45,7 +44,7 @@ $BE_USER->modAccess($MCONF,1);	// This checks permissions and exits if the users
 
 require_once (PATH_t3lib.'class.t3lib_stdgraphic.php');
 require_once (PATH_t3lib.'class.t3lib_htmlmail.php');
-require_once (PATH_site.'typo3/sysext/cms/tslib/class.tslib_content.php');
+require_once (PATH_tslib.'class.tslib_content.php');
 
 class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 	var $pageinfo;
@@ -102,23 +101,21 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 		$this->pageinfo = t3lib_BEfunc::readPageAccess($this->id,$this->perms_clause);
 		$access = is_array($this->pageinfo) ? 1 : 0;
 
+		$this->doc = t3lib_div::makeInstance('mediumDoc');
+		$this->doc->backPath = $BACK_PATH;
+		
 		if (($this->id && $access) || ($BE_USER->user['admin'] && !$this->id))	{
 
 			if (t3lib_div::_GP('cmd')=='previewhtml'){
-			  	$this->doc = t3lib_div::makeInstance('mediumDoc');
 				$this->content.=$this->doc->startPage($LANG->getLL('title'));
 				$this->content=$this->renderPreview('html');
 			} else if (t3lib_div::_GP('cmd')=='previewplain'){
-			  	$this->doc = t3lib_div::makeInstance('mediumDoc');
 				$this->content.=$this->doc->startPage($LANG->getLL('title'));
 				$this->content=$this->renderPreview('plain');
 			}
 
 			else{
-
 					// Draw the header.
-				$this->doc = t3lib_div::makeInstance('mediumDoc');
-				$this->doc->backPath = $BACK_PATH;
 				$this->doc->form='<form action="" method="POST">';
 
 					// JavaScript
@@ -136,10 +133,10 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 						if (top.fsMod) top.fsMod.recentIds["web"] = '.intval($this->id).';
 					</script>
 				';
-$this->content.='<div id="typo3-docbody"><div id="typo3-inner-docbody">';
-				$headerSection = $this->doc->getHeader('pages',$this->pageinfo,$this->pageinfo['_thePath']).'<br>'.$LANG->sL('LLL:EXT:lang/locallang_core.php:labels.path').': '.t3lib_div::fixed_lgd_pre($this->pageinfo['_thePath'],50);
+				$headerSection = $this->doc->getHeader('pages',$this->pageinfo,$this->pageinfo['_thePath']).'<br>'.$LANG->sL('LLL:EXT:lang/locallang_core.php:labels.path').': '.t3lib_div::fixed_lgd_cs($this->pageinfo['_thePath'],50);
 
 				$this->content.=$this->doc->startPage($LANG->getLL('title'));
+				$this->content.='<div id="typo3-docbody" style="top: 1px;"><div id="typo3-inner-docbody">';
 				$this->content.=$this->doc->header($LANG->getLL('title'));
 				$this->content.=$this->doc->spacer(5);
 				$this->content.=$this->doc->section('',$this->doc->funcMenu($headerSection,t3lib_BEfunc::getFuncMenu($this->id,'SET[function]',$this->MOD_SETTINGS['function'],$this->MOD_MENU['function'])));
@@ -153,16 +150,15 @@ $this->content.='<div id="typo3-docbody"><div id="typo3-inner-docbody">';
 					$this->content.='<br>'.$LANG->getLL('created').' '.$this->mailList(t3lib_div::_GP('ctrl')).$LANG->getLL('mailmessages');
 				}
 
-
 				// Render content:
 				$this->moduleContent();
-
 
 				// ShortCut
 				if ($BE_USER->mayMakeShortcut())	{
 					$this->content.=$this->doc->spacer(20).$this->doc->section('',$this->doc->makeShortcutIcon('id',implode(',',array_keys($this->MOD_MENU)),$this->MCONF['name']));
 				}
-$this->content.='</div></div>';
+				
+				$this->content.='</div></div>';
 				$this->content.=$this->doc->spacer(10);
 			}
 		} else {
@@ -272,8 +268,6 @@ $this->content.='</div></div>';
 					$content.='<table class="typo3-dblist" cellspacing="0" cellpadding="0" border="0">';
 					$content.='<tr class="t3-row-header">';
 
-
-
 					$content.='<td>'.$LANG->getLL('datetime').'</td>';
 					$content.='<td>'.$LANG->getLL('starttime').'</td>';
 					$content.='<td>'.$LANG->getLL('catcount').'</td>';
@@ -282,7 +276,7 @@ $this->content.='</div></div>';
 					$showcatmsg=false;
 					while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 						$catcount=$this->getCatCount($row['uid']);
-						$content.='<tr>';
+						$content.='<tr class="db_list_normal">';
 						$content.='<td>'.strftime($ctrl['dateformat'].' '.$ctrl['timeformat'], $row['datetime']).'</td>';
 						$starttime='';
 						

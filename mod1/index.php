@@ -202,10 +202,10 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 			case 2:
 				
 				$url='index.php?id='.$this->id.'&cmd=previewhtml';
-				$content='<div align=center><strong>HTML preview</strong></div><BR>';
+				$content='<div align=center><strong>' . $LANG->getLL('preview_html') . '</strong></div><BR>';
 				$content.='<iframe src="'.$url.'" width=475 height=600></iframe>';
 				$url='index.php?id='.$this->id.'&cmd=previewplain';
-				$content.='<div align=center><strong>Plain mail preview</strong></div><BR>';
+				$content.='<div align=center><strong>' . $LANG->getLL('preview_text') . '</strong></div><BR>';
 				$content.='<TEXTAREA NAME="" COLS=80 ROWS=30>'.t3lib_div::formatForTextArea($this->renderPreview('plain')).'</TEXTAREA>';
 
 				
@@ -353,16 +353,6 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 				}
 				$content.='</table>';
 
-
-
-
-
-
-
-
-
-
-
 			}
 			else
 				$content.='no news are ready ';
@@ -425,7 +415,10 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 	 * @param	string		$type: plain message $type='plain'. html message $type='html'
 	 * @return	string		the message.
 	 */
-	function renderPreview($type){
+	function renderPreview($type) {
+
+		global $LANG;
+		
 		$html='';
 		$ctrl=$this->loadControl();
 		if ($ctrl['uid']){		
@@ -438,7 +431,6 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 					''
 	        );
 	
-	
 			$newslist='';
 			if ($res){
 				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
@@ -449,7 +441,7 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 				$html=$this->createMsg(0,$newslist,$ctrl,$type);
 			}
 			else
-				$html.='no news are ready ';
+				$html.=$LANG->getLL('no_ready_news');
 	
 			$marker=array();
 			$marker['###name###']='John Doe';
@@ -458,33 +450,30 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 			$marker['###domain###']=$ctrl['orgdomain'];
 	
 			$html=$this->cObj->substituteMarkerArray($html,$marker);
-	
+
 			//$ctrl['html']=$html;
 			//$html=$this->createHTMLMSG($ctrl,array());
 		} else
-			$html.='no news mail control record located in this folder';
+			$html.=$LANG->getLL('no_mail_control');
+
 		return $html;
 	}
-
 
 }
 
 
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/aux_newsmailer/mod1/index.php'])	{
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/aux_newsmailer/mod1/index.php']);
+}
+	// Make instance:
+$SOBE = t3lib_div::makeInstance('tx_auxnewsmailer_module1');
 
-
-
-	if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/aux_newsmailer/mod1/index.php'])	{
-		include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/aux_newsmailer/mod1/index.php']);
-	}
-// Make instance:
-	$SOBE = t3lib_div::makeInstance('tx_auxnewsmailer_module1');
-
-	$SOBE->init();
+$SOBE->init();
 	// Include files?
-	foreach($SOBE->include_once as $INC_FILE)	include_once($INC_FILE);
+foreach($SOBE->include_once as $INC_FILE)	include_once($INC_FILE);
 
-	$SOBE->main();
-	$SOBE->printContent();
+$SOBE->main();
+$SOBE->printContent();
 
 
 ?>

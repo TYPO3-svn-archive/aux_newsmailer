@@ -34,7 +34,7 @@ require_once('conf.php');
 require_once(PATH_site.'typo3/init.php');
 require_once(PATH_site.'typo3/template.php');
 
-$GLOBALS['LANG']->includeLLFile('EXT:aux_newsmailer/mod1/locallang.php');
+$GLOBALS['LANG']->includeLLFile('EXT:aux_newsmailer/mod1/locallang.xml');
 
 class tx_auxnewsmailer_core extends t3lib_SCbase {
 	var $pageinfo;
@@ -227,8 +227,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 	                ''
 	            );
 				
-	            while($newsrow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)){
-
+	            while($newsrow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 
 					$plain.=$this->formatPlain($ctrl,$newsrow);
 					$html.=$this->formatHTML($ctrl,$newsrow,$resources);
@@ -243,10 +242,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 	   				'htmltext' =>$html,
 	   				'idctrl'=>$ctrl['uid'],
 					'resources'=>serialize($resources)
-
-
 				);
-
 
 				$res = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_auxnewsmailer_msglist', $insertArray);
 				$idmsg=$GLOBALS['TYPO3_DB']->sql_insert_id();
@@ -285,11 +281,10 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 	function formatHTML($ctrl,$news,&$resources){
 		global $LANG;
 
-
-
 		$i=explode(',',$news['image']);
 		$image=$i[0];
 		$newsdate=strftime($ctrl['dateformat'], $news['datetime']);
+		$newstime=strftime($ctrl['timeformat'], $news['datetime']);
 
 		$showitems=$ctrl['showitems'];
 		$result.='<div class="newsmailitem"">';
@@ -307,8 +302,14 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 		}
 		if (t3lib_div::inlist($showitems,'1'))
 			$result.='		<div class="newsmailtitle">'.$news['title'].'</div>';
-		if (t3lib_div::inlist($showitems,'4'))
-			$result.='		<div class="newsmaildate">'.$newsdate.'</div>';
+		if (t3lib_div::inlist($showitems,'4') && t3lib_div::inlist($showitems,'5'))
+			$result.='		<div class="newsmaildate">'.$newsdate.' '.$newstime.'</div>';
+		else {
+			if (t3lib_div::inlist($showitems,'4'))
+				$result.='		<div class="newsmaildate">'.$newsdate.'</div>';
+			if (t3lib_div::inlist($showitems,'5'))
+				$result.='		<div class="newsmaildate">'.$newstime.'</div>';
+		}
 		$result.='		<div class="newsmailshort">'.$news['short'].'</div>';
 		if (t3lib_div::inlist($showitems,'3'))
 			$result.='	<div class="newsmailbody">'.$this->formatStr($news['bodytext']).'</div>';
@@ -328,17 +329,24 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 	 * @param	array		$news: row from tt_news table
 	 * @return	string		news item in plain text.
 	 */
-		function formatPlain($ctrl,$news){
+	function formatPlain($ctrl,$news){
 		global $LANG;
 
 		$newsdate=strftime($ctrl['dateformat'], $news['datetime']);
+		$newstime=strftime($ctrl['timeformat'], $news['datetime']);
 
 		$showitems=$ctrl['showitems'];
 		$result.="\n";
 		if (t3lib_div::inlist($showitems,'1'))
 			$result.=$news['title']."\n";
-		if (t3lib_div::inlist($showitems,'4'))
-			$result.='('.$newsdate.")\n";
+		if (t3lib_div::inlist($showitems,'4') && t3lib_div::inlist($showitems,'5'))
+			$result.='('.$newsdate.' '.$newstime.")\n";
+		else {
+			if (t3lib_div::inlist($showitems,'4'))
+				$result.='('.$newsdate.")\n";
+			if (t3lib_div::inlist($showitems,'5'))
+				$result.='('.$newstime.")\n";
+		}
 		$result.=$news['short']."\n";
 		if (t3lib_div::inlist($showitems,'3'))
 			$result.=$this->formatStr($news['bodytext'])."\n";
@@ -384,7 +392,10 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 		$html='';
 		$marker=array();
 		$wrapped=array();
-		$marker['###DATE###']=strftime('%d %m %y %H:%M', time());
+		
+		$newsletterDate=strftime($ctrl['dateformat'], time());
+		$newsletterTime=strftime($ctrl['timeformat'], time());
+		$marker['###DATE###']=$newsletterDate.' '.$newsletterTime;
 		
 		$image=$this->getImage($ctrl['image'],$ctrl['imagew'],$ctrl['imageh']);
 		$resources[]=$image['url'];

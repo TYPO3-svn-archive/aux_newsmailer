@@ -27,7 +27,7 @@
  * @author	Tim Wentzlau <tim.wentzlau@auxilior.com>
  */
 require_once (PATH_t3lib.'class.t3lib_stdgraphic.php');
-require_once (PATH_site.'typo3/sysext/cms/tslib/class.tslib_content.php');
+require_once (PATH_tslib.'class.tslib_content.php');
 require_once (PATH_t3lib.'class.t3lib_scbase.php');
 
 require_once('conf.php');
@@ -287,7 +287,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 		$newstime=strftime($ctrl['timeformat'], $news['datetime']);
 
 		$showitems=$ctrl['showitems'];
-		$result.='<div class="newsmailitem"">';
+		$result.='<div class="newsmailitem">';
 
 		$result.='	<div class="newsitemtext">';
 		if (t3lib_div::inlist($showitems,'2')){

@@ -190,28 +190,26 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 	 *
 	 * @return	void		...
 	 */
-	function moduleContent()	{
+	function moduleContent() {
 		global $LANG;
 		switch((string)$this->MOD_SETTINGS['function'])	{
+			
 			case 1:
-
 				$content=$this->renderOverview();
-
 				$this->content.=$this->doc->section($LANG->getLL('function1'),$content,0,1);
-			break;
-			case 2:
+				break;
 				
-				$url='index.php?id='.$this->id.'&cmd=previewhtml';
-				$content='<div align=center><strong>' . $LANG->getLL('preview_html') . '</strong></div><BR>';
-				$content.='<iframe src="'.$url.'" width=475 height=600></iframe>';
-				$url='index.php?id='.$this->id.'&cmd=previewplain';
-				$content.='<div align=center><strong>' . $LANG->getLL('preview_text') . '</strong></div><BR>';
-				$content.='<TEXTAREA NAME="" COLS=80 ROWS=30>'.t3lib_div::formatForTextArea($this->renderPreview('plain')).'</TEXTAREA>';
-
-				
-				$this->content.=$this->doc->section($LANG->getLL('function2'),$content,0,1);
-			break;
-			case 3:
+			case 2:				
+				$url = 'index.php?id='.$this->id.'&cmd=previewhtml';
+				$content = '<div align="center"><strong>' . $LANG->getLL('preview_html') . '</strong></div><br />';
+				$content .= '<iframe src="'.$url.'" style="width: 97%; height: 260px;"></iframe>';
+				$url = 'index.php?id='.$this->id.'&cmd=previewplain';
+				$content .= '<div align="center"><strong>' . $LANG->getLL('preview_text') . '</strong></div><br />';
+				$content .= '<textarea name="" cols="80" rows="15" style="width: 97%; height: 260px;">'.t3lib_div::formatForTextArea($this->renderPreview('plain')).'</textarea>';
+				$this->content .= $this->doc->section($LANG->getLL('function2'),$content,0,1);
+				break;
+			
+			case 3:			
 				$content='<div align=center><strong>Menu item #3...</strong></div>';
 				$this->inBatch=true;
 				$ctrl['duration']='0,1,2,4,5,6';
@@ -224,12 +222,11 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 				$this->content.=$this->doc->section('Message #3:',$content,0,1);
 				$ctrl['lasttime']=mktime(0,0,0,6,1,2006);
 				$this->content.='10-2-2004'.$this->checkDuration($ctrl);
-
-			break;
+				break;
+				
 			case 4:
 				$this->$content=$this->renderPreview();
-
-			break;
+				break;
 		}
 	}
 
@@ -244,76 +241,73 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 		$ctrl=$this->loadControl();
 	  	$content='';
 
-
 	  	if ($ctrl['uid']!=0)
 	  	{
+			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
+					'uid,title,datetime,starttime',
+					'tt_news',
+					'deleted=0 and hidden=0 and tx_auxnewsmailer_scanstate<2 and tt_news.pid in '.$ctrl['pages'],
+					'',
+					'datetime',
+					''
+			);
 
-				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-                'uid,title,datetime,starttime',
-                'tt_news',
-                'deleted=0 and hidden=0 and tx_auxnewsmailer_scanstate<2 and tt_news.pid in '.$ctrl['pages'],
-                '',
-                'datetime',
-				''
-            );
-		  	
-		  	  	$content.='</br><b>'.$LANG->getLL('unsendnews').'</b></br>';
-		  	  	$content.='<br>'.$LANG->getLL('lastscan').strftime($ctrl['dateformat'].' '.$ctrl['timeformat'], $ctrl['lasttime']);
+			$content.='</br><b>'.$LANG->getLL('unsendnews').'</b></br>';
+			$content.='<br>'.$LANG->getLL('lastscan').strftime($ctrl['dateformat'].' '.$ctrl['timeformat'], $ctrl['lasttime']);
 				
-				
-			if ($GLOBALS['TYPO3_DB']->sql_num_rows($res)){	
-					$urlinvoke='index.php?id='.$this->id.'&cmd=scan&ctrl='.$ctrl['uid'];
-					$content.='<br><a href="'.$urlinvoke.'">['.$LANG->getLL('createmsg').']</a></br>';
+			if ($GLOBALS['TYPO3_DB']->sql_num_rows($res)) {
 
-					$content.='<table class="typo3-dblist" cellspacing="0" cellpadding="0" border="0">';
-					$content.='<tr class="t3-row-header">';
+				$urlinvoke='index.php?id='.$this->id.'&cmd=scan&ctrl='.$ctrl['uid'];
+				$content.='<br><a href="'.$urlinvoke.'">['.$LANG->getLL('createmsg').']</a></br>';
 
-					$content.='<td>'.$LANG->getLL('datetime').'</td>';
-					$content.='<td>'.$LANG->getLL('starttime').'</td>';
-					$content.='<td>'.$LANG->getLL('catcount').'</td>';
-					$content.='<td>'.$LANG->getLL('newstitle').'</td>';
-					
-					$showcatmsg=false;
-					while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-						$catcount=$this->getCatCount($row['uid']);
+				$content.='<table class="typo3-dblist" cellspacing="0" cellpadding="0" border="0">';
+				$content.='<tr class="t3-row-header">';
+
+				$content.='<td>'.$LANG->getLL('datetime').'</td>';
+				$content.='<td>'.$LANG->getLL('starttime').'</td>';
+				$content.='<td>'.$LANG->getLL('catcount').'</td>';
+				$content.='<td>'.$LANG->getLL('newstitle').'</td>';
+
+				$showcatmsg=false;
+				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+					$catcount=$this->getCatCount($row['uid']);
 						$content.='<tr class="db_list_normal">';
-						$content.='<td>'.strftime($ctrl['dateformat'].' '.$ctrl['timeformat'], $row['datetime']).'</td>';
-						$starttime='';
-						
-						if (($row['starttime'])&&($row['starttime']>time()))
-							$starttime.=strftime($ctrl['dateformat'].' '.$ctrl['timeformat'], $row['starttime']);
-						if (($ctrl['usecat'])&&($catcount==0)){
-							$showcatmsg=true;
-							if ($starttime) $starttime.='<br>';
-							$starttime.='<font color="red">'.$LANG->getLL('nocat').'</font>';
-						}
-						if (!$starttime)
-							$starttime=	$LANG->getLL('nextscan');
-						
-						$content.='<td>'.$starttime.'</td>';
-						$content.='<td>'.$catcount.'</td>';
-						$content.='<td>'.$row['title'].'</td>';
-						$content.='</tr>';
-						
+					$content.='<td>'.strftime($ctrl['dateformat'].' '.$ctrl['timeformat'], $row['datetime']).'</td>';
+					$starttime='';
+
+					if (($row['starttime'])&&($row['starttime']>time()))
+						$starttime.=strftime($ctrl['dateformat'].' '.$ctrl['timeformat'], $row['starttime']);
+					if (($ctrl['usecat'])&&($catcount==0)){
+						$showcatmsg=true;
+						if ($starttime) $starttime.='<br>';
+						$starttime.='<font color="red">'.$LANG->getLL('nocat').'</font>';
 					}
-					$content.='</table>';
-				
+					if (!$starttime)
+						$starttime=	$LANG->getLL('nextscan');
+
+					$content.='<td>'.$starttime.'</td>';
+					$content.='<td>'.$catcount.'</td>';
+					$content.='<td>'.$row['title'].'</td>';
+					$content.='</tr>';
+					
+				}
+				$content.='</table>';
+
 				if ($showcatmsg)
 					$content.='<br>'.$LANG->getLL('catmsg').'<br>';
 			} else
 				$content.='</br>0 '.$LANG->getLL('unsendnews').'</br>';
 
-
-
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-                '*',
-                'tx_auxnewsmailer_msglist',
-                'state=0 and idctrl='.$ctrl['uid'],
-                '',
-                '',
-				''
-            );
-		  	if ($GLOBALS['TYPO3_DB']->sql_num_rows($res)){
+					'*',
+					'tx_auxnewsmailer_msglist',
+					'state=0 and idctrl='.$ctrl['uid'],
+					'',
+					'',
+					''
+			);
+
+		  	if ($GLOBALS['TYPO3_DB']->sql_num_rows($res)) {
 				$content.='<br><b>'.$LANG->getLL('pendingmsg').'</b>';
 				$urlinvoke='index.php?id='.$this->id.'&cmd=invoke&msg=0';
 				$imgurl='../res/sendmail.png';
@@ -323,7 +317,6 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 		  		$content.='<table  class="typo3-dblist" cellspacing="0" cellpadding="0" border="0">';
 				$content.='<tr class="t3-row-header">';
 
-
 				$content.='<td>#</td>';
 				//$content.='<td>'.$LANG->getLL('start').'</td>';
 				//$content.='<td>'.$LANG->getLL('end').'</td>';
@@ -331,34 +324,30 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 				$content.='<td>'.$LANG->getLL('send').'</td>';
 
 				$content.='<td>&nbsp;</td>';
-
 				$content.='</tr>';
 
 				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 				  	$urlinvoke='index.php?id='.$this->id.'&cmd=markall&msg='.$row['uid'];
 					$cnt=$this->getUsrMsgCount($row['uid']);
 					if ($cnt['unsend']){
+
 						$content.='<tr>';
-
-
 						$content.='<td>'.$row[uid].'</td>';
 						//$content.='<td>123456</td>';
 						//$content.='<td>123456</td>';
 						$content.='<td>'.$cnt['unsend'].'</td>';
 						$content.='<td>'.$cnt['sendto'].'</td>';
 						$content.='<td><a href="'.$urlinvoke.'">['.$LANG->getLL('markall').']</a></td>';
-
 						$content.='</tr>';
 					}
 				}
 				$content.='</table>';
-
 			}
 			else
 				$content.='no news are ready ';
 		}
 		else
-			$content.='no news mail control record located in this folder';
+			$content .= $LANG->getLL('no_mail_control');
 	  	return $content;
 	}
 
@@ -368,45 +357,45 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 	 * @param	int		$msg: id of message.
 	 * @return	array	Array holding the counts.
 	 */
-	function getUsrMsgCount($msg){
-	  	$cnt=array();
-	  	$cnt['unsend']=0;
-	  	$cnt['sendto']=0;
+	function getUsrMsgCount($msg) {
+
+		$cnt=array();
+		$cnt['unsend']=0;
+		$cnt['sendto']=0;
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-                'count(idmsg)',
-                'tx_auxnewsmailer_usrmsg',
-                'state=0 and idmsg='.$msg,
-                '',
-                '',
+				'count(idmsg)',
+				'tx_auxnewsmailer_usrmsg',
+				'state=0 and idmsg='.$msg,
+				'',
+				'',
 				''
-        );
+		);
 		list($cnt['unsend']) = $GLOBALS['TYPO3_DB']->sql_fetch_row($res);
 	  	$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-                'count(idmsg)',
-                'tx_auxnewsmailer_usrmsg',
-                'state=2 and idmsg='.$msg,
-                '',
-                '',
+				'count(idmsg)',
+				'tx_auxnewsmailer_usrmsg',
+				'state=2 and idmsg='.$msg,
+				'',
+				'',
 				''
-        );
+		);
 		list($cnt['sendto']) = $GLOBALS['TYPO3_DB']->sql_fetch_row($res);
 
 		return $cnt;
 	}
 	
-	function getCatCount($uid){
-	  	
+	function getCatCount($uid) {
 		
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-                'count(uid_local)',
-                'tt_news_cat_mm',
-                'uid_local='.$uid,
-                '',
-                '',
+				'count(uid_local)',
+				'tt_news_cat_mm',
+				'uid_local='.$uid,
+				'',
+				'',
 				''
-        );	  	
-        list($cnt) = $GLOBALS['TYPO3_DB']->sql_fetch_row($res);
-        return $cnt;
+		);
+		list($cnt) = $GLOBALS['TYPO3_DB']->sql_fetch_row($res);
+		return $cnt;
 	}
 
 	/**
@@ -418,21 +407,21 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 	function renderPreview($type) {
 
 		global $LANG;
-		
+
 		$html='';
 		$ctrl=$this->loadControl();
 		if ($ctrl['uid']){		
-		  	$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-	                'distinct uid',
-	                'tt_news',
-	                'deleted=0 and hidden=0 and tt_news.pid in '.$ctrl['pages'].' and tx_auxnewsmailer_scanstate<2 and starttime<'.time(),
-	                '',
-	                'uid',
-					''
-	        );
-	
+			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
+				'distinct uid',
+				'tt_news',
+				'deleted=0 and hidden=0 and tt_news.pid in '.$ctrl['pages'].' and tx_auxnewsmailer_scanstate<2 and starttime<'.time(),
+				'',
+				'uid',
+				''
+			);
+
 			$newslist='';
-			if ($res){
+			if ($res) {
 				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 					if ($newslist!='')
 						$newslist.=',';

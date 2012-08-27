@@ -366,16 +366,20 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 	function createNewsLetter($ctrl,$news,$type='html',&$resources) {
 		global $LANG;
 
-		$file=$ctrl['template'];
-	  	if (!$file){
+		$$file=$ctrl['template'];
+		if (!$file){
 			$file= t3lib_extMgm::extPath("aux_newsmailer") . "/res/template.tmpl";
-		//	$file='../res/template.tmpl';
+		}
+		else {
+			$file = PATH_site . '/uploads/tx_auxnewsmailer/' . $file;
 		}
 
 		$stylesheet=$ctrl['stylesheet'];
-	  	if (!$stylesheet){
-	  		//$file= t3lib_extMgm::extPath("aux_newsmailer") . '/res/mail.css';
-			$stylesheet='../res/mail.css';
+		if (!$stylesheet){
+			$stylesheet=  t3lib_extMgm::extPath("aux_newsmailer") .  '/res/mail.css';
+		}
+		else {
+			$stylesheet = PATH_site . '/uploads/tx_auxnewsmailer/' . $stylesheet;
 		}
 
 		$templateCode = t3lib_div::getURL($file);

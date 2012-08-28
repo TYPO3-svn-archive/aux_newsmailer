@@ -366,12 +366,12 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 	function createNewsLetter($ctrl,$news,$type='html',&$resources) {
 		global $LANG;
 
-		$$file=$ctrl['template'];
+		$file=$ctrl['template'];
 		if (!$file){
 			$file= t3lib_extMgm::extPath("aux_newsmailer") . "/res/template.tmpl";
 		}
 		else {
-			$file = PATH_site . '/uploads/tx_auxnewsmailer/' . $file;
+			$file = PATH_site . 'uploads/tx_auxnewsmailer/' . $file;
 		}
 
 		$stylesheet=$ctrl['stylesheet'];
@@ -379,7 +379,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 			$stylesheet=  t3lib_extMgm::extPath("aux_newsmailer") .  '/res/mail.css';
 		}
 		else {
-			$stylesheet = PATH_site . '/uploads/tx_auxnewsmailer/' . $stylesheet;
+			$stylesheet = t3lib_div::getIndpEnv("TYPO3_SITE_URL") . 'uploads/tx_auxnewsmailer/' . $stylesheet;
 		}
 
 		$templateCode = t3lib_div::getURL($file);

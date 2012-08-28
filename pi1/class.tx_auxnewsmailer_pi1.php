@@ -47,7 +47,6 @@ class tx_auxnewsmailer_pi1 extends tslib_pibase {
 	 * @return	string		The plugin result that shuld be included on the page.
 	 */
 	function main($content,$conf)	{
-		echo('a');
 		$this->init($conf);
 		$GLOBALS["TSFE"]->set_no_cache();
 		//$GLOBALS['TYPO3_DB']->debugOutput=true;
@@ -222,8 +221,8 @@ class tx_auxnewsmailer_pi1 extends tslib_pibase {
 		//Clear the users previous selections, if not dublicates will appear
 		$sql="delete from tx_auxnewsmailer_usercat WHERE pid=".$this->lConf['userPID']." and iduser=".$GLOBALS['TSFE']->fe_user->user['uid'];
 
-		//$dbres = mysql(TYPO3_db,$sql) or $content .= "Error Mysql:".mysql_error()."<br>";
-		$dbres = mysql_query($sql,TYPO3_db) or $content .= "Error Mysql:".mysql_error()."<br>";
+		$dbres = mysql(TYPO3_db,$sql) or $content .= "Error Mysql:".mysql_error()."<br>";
+
 		$newsletter=0;
 		$html=0;
 

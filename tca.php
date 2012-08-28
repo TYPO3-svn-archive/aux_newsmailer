@@ -354,6 +354,18 @@ $TCA["tx_auxnewsmailer_control"] = Array (
 				"maxitems" => 20,
 			)
 		),
+		"categories" => Array (		
+			"exclude" => 1,		
+			"label" => "LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.categories",		
+			"config" => Array (
+				"type" => "group",	
+				"internal_type" => "db",	
+				"allowed" => "pages",	
+				"size" => 5,	
+				"minitems" => 0,
+				"maxitems" => 20,
+			)
+		),
 		"userpage" => Array (		
 			"exclude" => 1,		
 			"label" => "LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.userpage",		

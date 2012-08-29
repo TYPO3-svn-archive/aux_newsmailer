@@ -29,6 +29,7 @@
 require_once (PATH_t3lib.'class.t3lib_stdgraphic.php');
 require_once (PATH_tslib.'class.tslib_content.php');
 require_once (PATH_t3lib.'class.t3lib_scbase.php');
+require_once (PATH_t3lib.'class.t3lib_parsehtml.php');
 
 require_once('conf.php');
 require_once(PATH_site.'typo3/init.php');
@@ -226,7 +227,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 					''
 				);
 				
-	            while($newsrow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+	            		while($newsrow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 
 					$plain.=$this->formatPlain($ctrl,$newsrow);
 					$html.=$this->formatHTML($ctrl,$newsrow,$resources);
@@ -279,6 +280,25 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 	 */
 	function formatHTML($ctrl,$news,&$resources) {
 		global $LANG;
+
+
+		if (t3lib_extMgm::isLoaded('tx_ttnews')) {
+			require_once(t3lib_extMgm::extPath('tx_ttnews') . 'pi/class.tx_ttnews.php');
+		
+			$tx_ttnews = t3lib_div::makeInstance('tx_ttnews');
+			$tx_ttnews->cObj = $this->cObj;
+	#		$tx_ttnews->piVars['swords'] = $swords ;
+			$tx_ttnews_config = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tt_news.'];
+			$tx_ttnews_config['templateFile'] = 'fileadmin/templates/infolettre/tt_news_latest_infolettre.html';  #'EXT:customsearch/res/search_tt_news.tmpl';
+			$tx_ttnews_config['code'] = 'LATEST';
+			$tx_ttnews_config['code.'] = null;
+		
+			$newsList = $tx_ttnews->main_news('',$tx_ttnews_config);
+
+
+			return $newsList;
+		}
+		
 
 		$i=explode(',',$news['image']);
 		$image=$i[0];
@@ -371,7 +391,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 			$file= t3lib_extMgm::extPath("aux_newsmailer") . "/res/template.tmpl";
 		}
 		else {
-			$file = PATH_site . 'uploads/tx_auxnewsmailer/' . $file;
+			$file = PATH_site . '/uploads/tx_auxnewsmailer/' . $file;
 		}
 
 		$stylesheet=$ctrl['stylesheet'];
@@ -383,12 +403,13 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 		}
 
 		$templateCode = t3lib_div::getURL($file);
+		$cssStyles = t3lib_div::getURL($stylesheet);
 
 		if ($type=='html')
 			$templateMarker = '###HTMLMAIL###';
 		else
 			$templateMarker = '###PLAINMAIL###';
-		$template = $this->cObj->getSubpart($templateCode, $templateMarker);
+		$template  = $this->cObj->getSubpart($templateCode, $templateMarker);
 
 		$html='';
 		$marker=array();
@@ -431,6 +452,32 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 
 		$marker['###NEWSLIST###'] = $news;
 		$html .= $this->cObj->substituteMarkerArray($template,$marker);
+
+		if ($type === 'html' ) {
+
+			/* older mail agents can't use css styles shees included as cid.  Need to add them inline*/
+			$html .= '<style>' . $cssStyles  . '</style>';
+
+			/* include images in the custom template as ressources  */
+			$htmlParse = t3lib_div::makeInstance('t3lib_parsehtml');
+
+			$arrIMGTag = $htmlParse->splitTags("img", $html);
+
+			foreach  ($arrIMGTag as $k => $v ) {
+				// array contains outer html in even #, wanted tags in odd #'s
+				if ($k%2) {
+					$imgTag= $htmlParse->get_tag_attributes($v, true);
+					$imgSrc = t3lib_div::htmlspecialchars_decode($imgTag[0]['src']);
+				
+					//skip already mapped images from articlse -- starting by ###RES_
+					if ( (strpos($imgSrc,"###RES_") === false) ) {
+						$resources[]= $imgSrc;
+		 				$resID= count($resources)-1;
+						$html= str_replace( $imgSrc , '###RES_' .$resID . '###', $html);
+					}
+				}
+			}
+		}
 
 	  	return $html;
 	}

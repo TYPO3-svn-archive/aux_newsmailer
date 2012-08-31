@@ -1,6 +1,7 @@
 plugin.tx_auxnewsmailer_pi1 {
-  #default template file
-  templateFile = EXT:aux_newsmailer/res/template.tmpl
-  storagePID =
+	templateFile = EXT:aux_newsmailer/res/template.tmpl
+	templateCSS = EXT:aux_newsmailer/res/mail.css
+	storagePID =
+	recursive =
+	excludeCatPidList = 
 }
- 

@@ -46,6 +46,29 @@ require_once (PATH_t3lib.'class.t3lib_stdgraphic.php');
 require_once (PATH_t3lib.'class.t3lib_htmlmail.php');
 require_once (PATH_tslib.'class.tslib_content.php');
 
+
+
+/**
+ * [CLASS/FUNCTION INDEX of SCRIPT]
+ *
+ *
+ *
+ *   72: class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core
+ *   82:     function init()
+ *  101:     function menuConfig()
+ *  119:     function main()
+ *  149:     function jumpToUrl(URL)
+ *  206:     function printContent()
+ *  217:     function moduleContent()
+ *  262:     function renderOverview()
+ *  388:     function getUsrMsgCount($msg)
+ *  423:     function getCatCount($uid)
+ *  443:     function renderPreview($type)
+ *
+ * TOTAL FUNCTIONS: 10
+ * (This index is automatically created/updated by the extension "extdeveval")
+ *
+ */
 class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 	var $pageinfo;
 	var $cObj;
@@ -53,7 +76,8 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 
 	/**
 	 * Initializes the module
-	 * @return	void	
+	 *
+	 * @return	void
 	 */
 	function init()	{
 		global $BE_USER,$LANG,$BACK_PATH,$TCA_DESCR,$TCA,$CLIENT,$TYPO3_CONF_VARS;
@@ -86,7 +110,7 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 		parent::menuConfig();
 	}
 
-		
+
 	/**
 	 * Main function of the module. Write the content to $this->content
 	 *
@@ -103,7 +127,7 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 
 		$this->doc = t3lib_div::makeInstance('mediumDoc');
 		$this->doc->backPath = $BACK_PATH;
-		
+
 		if (($this->id && $access) || ($BE_USER->user['admin'] && !$this->id))	{
 
 			if (t3lib_div::_GP('cmd')=='previewhtml'){
@@ -157,7 +181,7 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 				if ($BE_USER->mayMakeShortcut())	{
 					$this->content.=$this->doc->spacer(20).$this->doc->section('',$this->doc->makeShortcutIcon('id',implode(',',array_keys($this->MOD_MENU)),$this->MCONF['name']));
 				}
-				
+
 				$this->content.='</div></div>';
 				$this->content.=$this->doc->spacer(10);
 			}
@@ -193,13 +217,13 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 	function moduleContent() {
 		global $LANG;
 		switch((string)$this->MOD_SETTINGS['function'])	{
-			
+
 			case 1:
 				$content=$this->renderOverview();
 				$this->content.=$this->doc->section($LANG->getLL('function1'),$content,0,1);
 				break;
-				
-			case 2:				
+
+			case 2:
 				$url = 'index.php?id='.$this->id.'&cmd=previewhtml';
 				$content = '<div align="center"><strong>' . $LANG->getLL('preview_html') . '</strong></div><br />';
 				$content .= '<iframe src="'.$url.'" style="width: 97%; height: 260px;"></iframe>';
@@ -208,8 +232,8 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 				$content .= '<textarea name="" cols="80" rows="15" style="width: 97%; height: 260px;">'.t3lib_div::formatForTextArea($this->renderPreview('plain')).'</textarea>';
 				$this->content .= $this->doc->section($LANG->getLL('function2'),$content,0,1);
 				break;
-			
-			case 3:			
+
+			case 3:
 				$content='<div align=center><strong>Menu item #3...</strong></div>';
 				$this->inBatch=true;
 				$ctrl['duration']='0,1,2,4,5,6';
@@ -223,7 +247,7 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 				$ctrl['lasttime']=mktime(0,0,0,6,1,2006);
 				$this->content.='10-2-2004'.$this->checkDuration($ctrl);
 				break;
-				
+
 			case 4:
 				$this->$content=$this->renderPreview();
 				break;
@@ -254,7 +278,7 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 
 			$content.='</br><b>'.$LANG->getLL('unsendnews').'</b></br>';
 			$content.='<br>'.$LANG->getLL('lastscan').strftime($ctrl['dateformat'].' '.$ctrl['timeformat'], $ctrl['lasttime']);
-				
+
 			if ($GLOBALS['TYPO3_DB']->sql_num_rows($res)) {
 
 				$urlinvoke='index.php?id='.$this->id.'&cmd=scan&ctrl='.$ctrl['uid'];
@@ -289,7 +313,7 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 					$content.='<td>'.$catcount.'</td>';
 					$content.='<td>'.$row['title'].'</td>';
 					$content.='</tr>';
-					
+
 				}
 				$content.='</table>';
 
@@ -301,11 +325,11 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
 					'tx_auxnewsmailer_msglist.*',
 					'tx_auxnewsmailer_msglist, fe_users, tx_auxnewsmailer_usrmsg',
-					'tx_auxnewsmailer_msglist.state=0 ' . 
-						' and fe_users.disable = 0 ' . 
+					'tx_auxnewsmailer_msglist.state=0 ' .
+						' and fe_users.disable = 0 ' .
 						' and fe_users.deleted = 0 ' .
 						' and tx_auxnewsmailer_usrmsg.idmsg=tx_auxnewsmailer_msglist.uid ' .
-						' and tx_auxnewsmailer_usrmsg.iduser=fe_users.uid ' . 
+						' and tx_auxnewsmailer_usrmsg.iduser=fe_users.uid ' .
 						' and idctrl='.$ctrl['uid'],
 					'',
 					'',
@@ -317,7 +341,7 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 				$urlinvoke='index.php?id='.$this->id.'&cmd=invoke&msg=0';
 				$imgurl='../res/sendmail.png';
 				$content.='<br><a href="'.$urlinvoke.'" title="'.$LANG->getLL('invoke').'">[' . $LANG->getLL('invoke') . ']<img src="'.$imgurl.'"/></a>';
-				
+
 		  		$content.='<table  class="typo3-dblist" cellspacing="0" cellpadding="0" border="0">';
 				$content.='<tr class="t3-row-header">';
 
@@ -359,7 +383,7 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 	 * Returns the number of users that should receive or have received a message
 	 *
 	 * @param	int		$msg: id of message.
-	 * @return	array	Array holding the counts.
+	 * @return	array		Array holding the counts.
 	 */
 	function getUsrMsgCount($msg) {
 
@@ -389,9 +413,15 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 
 		return $cnt;
 	}
-	
+
+	/**
+	 * [Describe function...]
+	 *
+	 * @param	int		$uid: uid of tt_news categories (uid_local)
+	 * @return	int		number of children categories found
+	 */
 	function getCatCount($uid) {
-		
+
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
 				'count(uid_local)',
 				'tt_news_cat_mm',
@@ -416,7 +446,7 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 
 		$html='';
 		$ctrl=$this->loadControl();
-		if ($ctrl['uid']){		
+		if ($ctrl['uid']){
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
 				'distinct uid',
 				'tt_news',
@@ -437,13 +467,13 @@ class tx_auxnewsmailer_module1 extends tx_auxnewsmailer_core {
 			}
 			else
 				$html.=$LANG->getLL('no_ready_news');
-	
+
 			$marker=array();
 			$marker['###name###']='John Doe';
 			$marker['###orgname###']=$ctrl['name'];
 			$marker['###org###']=$ctrl['organisation'];
 			$marker['###domain###']=$ctrl['orgdomain'];
-	
+
 			$html=$this->cObj->substituteMarkerArray($html,$marker);
 
 			//$ctrl['html']=$html;

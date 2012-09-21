@@ -45,32 +45,30 @@ $GLOBALS['LANG']->includeLLFile('EXT:aux_newsmailer/mod1/locallang.xml');
  *
  *
  *   72: class tx_auxnewsmailer_core extends t3lib_SCbase
- *   85:     function loadControl($idctrl=0)
- *  129:     function batch($action = "", $idctrl = 0)
- *  161:     function mailList($idctrl)
- *  233:     function createMsg($uid,$newslist,$ctrl,$preview=false)
- *  315:     function formatHTML($ctrl,$news,&$resources)
- *  384:     function formatPlain($ctrl,$news)
- *  421:     function createNewsLetter($ctrl,$news,$type='html',&$resources)
- *  530:     function smsList()
- *  609:     function getUserInfo($uid)
- *  637:     function getMessageInfo($uid)
- *  691:     function scanNews($list,$idctrl)
- *  777:     function checkDuration($ctrl)
- *  823:     function sendMail($inbatch=false, $idctrl=0)
- *  904:     function domail($email,$name,$subject,$message,$fromEMail,$fromName,$html='',$ctrl,$resources,$returnMail)
- * 1012:     function formatStr($str)
- * 1025:     function initPidList ()
- * 1051:     function getImage($file,$width,$height,$preview=false)
+ *   86:     function loadControl($idctrl=0)
+ *  128:     private function loadTSConfig($userPageId)
+ *  165:     function batch($action = "", $idctrl = 0)
+ *  196:     function mailList($idctrl)
+ *  268:     function createMsg($uid,$newslist,$ctrl,$preview=false)
+ *  355:     function formatHTML($ctrl,$news,&$resources)
+ *  441:     function formatPlain($ctrl,$news)
+ *  475:     private function html2plain($html)
+ *  493:     function createNewsLetter($ctrl,$news,$type='html',&$resources)
+ *  635:     function smsList()
+ *  722:     function getUserInfo($uid)
+ *  748:     function getMessageInfo($uid)
+ *  797:     function scanNews($list, $idctrl)
+ *  883:     function checkDuration($ctrl)
+ *  929:     function sendMail($inbatch=false, $idctrl=0)
+ * 1010:     function domail($email,$name,$subject,$message,$fromEMail,$fromName,$html='',$ctrl,$resources,$returnMail)
+ * 1118:     function formatStr($str)
+ * 1134:     function getImage($file,$width,$height,$preview=false)
+ * 1200:     public function processCmdmap_postProcess($command, $tableName, $recordId)
  *
- * TOTAL FUNCTIONS: 17
+ * TOTAL FUNCTIONS: 19
  * (This index is automatically created/updated by the extension "extdeveval")
  *
  */
-
-
-
-
 class tx_auxnewsmailer_core extends t3lib_SCbase {
 	var $pageinfo;
 	var $cObj;
@@ -131,9 +129,9 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 
 		// import t3lib_page class if not already done (this should be a problem of TYPO3 4.2.x only)
 		if (!class_exists('t3lib_pageSelect', FALSE)) {
-			t3lib_div::requireOnce(PATH_t3lib."class.t3lib_page.php");   
+			t3lib_div::requireOnce(PATH_t3lib."class.t3lib_page.php");
 		}
-		
+
 		// Initialize the page selector
 		$sysPage = t3lib_div::makeInstance('t3lib_pageSelect');
 		$sysPage->init(true);
@@ -156,7 +154,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 
 		return $template->setup['plugin.'][$this->extPi1 . '.'];
 	}
-	
+
 	/**
 	 * Executes the scan and mailing actions in cronjobs
 	 *
@@ -169,7 +167,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 
 	  	$this->cObj=t3lib_div::makeInstance("tslib_cObj");
 		//$GLOBALS['TYPO3_DB']->debugOutput=true;
-		
+
 		$this->inBatch=true;
 		if (($action=='')||($action=='-s')){
 		  	$msg.= "Scanning news:\n";
@@ -196,7 +194,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 	 * @return	int		Number of messages created.
 	 */
 	function mailList($idctrl) {
-	
+
 		$where='hidden=0';
 		if ($idctrl){
 			$where.=' and uid='.intval($idctrl);
@@ -258,18 +256,18 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 	}
 
 	/**
-	 * Creates a message both plain version and html. 
+	 * Creates a message both plain version and html.
 	 * If the message contains the same news items as a former mail the new one is discarded and the uid of the old message is used.
 	 *
 	 * @param	int		$uid: ...
 	 * @param	string		$newslist: list with news ids that should go into the message
 	 * @param	array		$ctrl: Newsletter control array
-	 * @param	string		$preview: if ommited the new message is stored in the tx_auxnewsmailer table. 
+	 * @param	string		$preview: if ommited the new message is stored in the tx_auxnewsmailer table.
 	 * @return	string		if $preview='plain' the plain version of the message is returned. preview='html' the html version is returned.
 	 */
 	function createMsg($uid,$newslist,$ctrl,$preview=false) {
 		global $LANG;
-		
+
 		$LANG->init($ctrl['lang']);
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
 				'uid',
@@ -296,7 +294,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 						'datetime',
 						''
 				);
-				
+
 				while($newsrow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 
 					$plain .= $this->formatPlain($ctrl,$newsrow);
@@ -325,7 +323,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 					$marker['###RES_'.$i.'###']=$res;
 				}
 				$html=$this->cObj->substituteMarkerArray($html,$marker);
-				
+
 			}
 		}
 
@@ -360,7 +358,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 /*
 		if (t3lib_extMgm::isLoaded('tx_ttnews')) {
 			require_once(t3lib_extMgm::extPath('tx_ttnews') . 'pi/class.tx_ttnews.php');
-	
+
 			$tx_ttnews = t3lib_div::makeInstance('tx_ttnews');
 			$tx_ttnews->cObj = $this->cObj;
 			$tx_ttnews->piVars['swords'] = $swords ;
@@ -368,10 +366,10 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 			$tx_ttnews_config['templateFile'] = 'fileadmin/templates/infolettre/tt_news_latest_infolettre.html';  #'EXT:customsearch/res/search_tt_news.tmpl';
 			$tx_ttnews_config['code'] = 'LATEST';
 			$tx_ttnews_config['code.'] = null;
-	
+
 			$newsList = $tx_ttnews->main_news('',$tx_ttnews_config);
-	
-	
+
+
 			return $newsList;
 		}
 */
@@ -380,7 +378,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 		$i = explode(',', $news['image']);
 		if (count($i) > 0 )
 			$image = $i[0];
-		
+
 			// Get news date & time
 		$newsdate = strftime($ctrl['dateformat'], $news['datetime']);
 		$newstime = strftime($ctrl['timeformat'], $news['datetime']);
@@ -388,20 +386,20 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 		$showitems = $ctrl['showitems'];
 		$result = '<div class="newsmailitem">';
 		$result .= '	<div class="newsitemtext">';
-		
+
 			// draw image
 		if (t3lib_div::inlist($showitems,'2')) {
-			
-			if ($image !== '') {			
-				
+
+			if ($image !== '') {
+
 				$image=$this->getImage($image,$ctrl['listimagew'],$ctrl['listimageh']);
 				if($image['url']) {
-					
+
 					$resources[] = $image['url'];
 					$resID = count($resources)-1;
 					$tag = str_replace('###URL###', '###RES_'.$resID.'###', $image['tag']);
 				}
-				
+
 				$result.='	<div class="newsmailimage">'.$tag.'</div>';
 			}
 		}
@@ -420,16 +418,16 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 		}
 			// draw abbreviation
 		$result .= '		<div class="newsmailshort">'.$news['short'].'</div>';
-		
+
 			// draw body
 		if (t3lib_div::inlist($showitems,'3'))
 			$result .= '	<div class="newsmailbody">'.$this->formatStr($news['bodytext']).'</div>';
 		else
 			$result .= '	<div class="newsmaillink"><a href="http://'.$ctrl['orgdomain'].'/index.php?id='.$ctrl['newspage'].'&tx_ttnews[tt_news]='.$news['uid'].'">'.$LANG->getLL("readmore").'</a></div>';
-		
+
 		$result .= '	</div>';
 		$result .= '<div class="ffclear"></div></div>';
-		
+
 		return $result;
 	}
 
@@ -447,7 +445,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 		$newstime = strftime($ctrl['timeformat'], $news['datetime']);
 		$showitems = $ctrl['showitems'];
 		$result = '';
-		
+
 		if (t3lib_div::inlist($showitems,'1'))
 			$result .= $news['title'] . "\n";
 		if (t3lib_div::inlist($showitems,'4') && t3lib_div::inlist($showitems,'5'))
@@ -464,25 +462,25 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 //		else
 //			$result.='<a href="http://'.$ctrl['orgdomain'].'/index.php?id='.$ctrl['newspage'].'">'.$LANG->getLL("readmore").'</a></div>';
 		$result .= "\n";
-		
+
 		return $result;
 	}
 
     /**
-     * Converts all HTML page breaks to \n and removes all HTML tags
-     *
-     * @param	string		$html: HTML text to convert
-     * @return	string		Converted text
-     */
+ * Converts all HTML page breaks to \n and removes all HTML tags
+ *
+ * @param	string		$html: HTML text to convert
+ * @return	string		Converted text
+ */
 	private function html2plain($html) {
-		
+
 		$plain = str_ireplace('<br>', "\n", $html);
 		$plain = str_ireplace('<br />', "\n", $plain);
 		$plain = strip_tags($plain);
-		
+
 		return $plain;
-	}	
-	
+	}
+
 	/**
 	 * Creates the compleate newsletter
 	 *
@@ -502,7 +500,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 		   1. User Control
 		   2. TypoScript Setup
 		   3. Default extension template
-		*/		
+		*/
 		$file = PATH_site . 'uploads/tx_auxnewsmailer/' . $ctrl['template'];
 		if (!file_exists($file) || (substr($file, -1) == '/') ) {
 
@@ -511,7 +509,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 
 				$file = t3lib_extMgm::extPath($this->extKey) . "res/template.tmpl";
 			}
-		}	
+		}
 		$templateCode = t3lib_div::getURL($file);
 
 		$stylesheet = $ctrl['stylesheet'];
@@ -534,45 +532,45 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 		else
 			$templateMarker = '###PLAINMAIL###';
 		$template = $this->cObj->getSubpart($templateCode, $templateMarker);
-		
+
 		$html = '';
 		$marker = array();
 		$wrapped = array();
-		
+
 		$newsletterDate = strftime($ctrl['dateformat'], time());
 		$newsletterTime = strftime($ctrl['timeformat'], time());
 		$marker['###DATE###'] = $newsletterDate . ' ' . $newsletterTime;
-		
+
 		$image = $this->getImage($ctrl['image'],$ctrl['imagew'],$ctrl['imageh']);
 		$resources[] = $image['url'];
 		$resID = count($resources)-1;
 		$marker['###IMAGE###'] = str_replace('###URL###','###RES_'.$resID.'###',$image['tag']);
 		//$marker['###IMAGE###']=$this->getImage($ctrl['image'],$ctrl['imagew'],$ctrl['imageh'],$preview);
-		
+
 		if ($type == 'html'){
 			$resources[] = $stylesheet;
 			$resID = count($resources)-1;
 			$marker['###CSS###'] = '###RES_'.$resID.'###';
 		}
-		
+
 		$marker['###TITLE###'] = $ctrl['subject'];
 
 		if ($type == 'html')
 			$marker['###NEWSHEADER###'] = nl2br($ctrl['pretext']);
 		else
 			$marker['###NEWSHEADER###'] = $this->html2plain($ctrl['pretext']);
-			
+
 		if ($type == 'html')
 			$marker['###NEWSFOOTER###'] = nl2br($ctrl['posttext']);
 		else
 			$marker['###NEWSFOOTER###'] = $this->html2plain($ctrl['posttext']);
-		
+
 		$marker['###PROFILEMESSAGE###'] = $LANG->getLL('signoff');
 
 		if ($type == 'html')
 			$marker['###PROFILELINK###'] = '<a  href="http://'.$ctrl['orgdomain'].'/index.php?id='.$ctrl['userpage'].'">'.$LANG->getLL('editprofile').'</a>';
 			/*$marker['###PROFILELINK###'] = $this->cObj->typolink(
-				$LANG->getLL('editprofile'), 
+				$LANG->getLL('editprofile'),
 				array(
 					'parameter'	=> intval($ctrl['userpage']),
 					'linkAccessRestrictedPages' => TRUE
@@ -581,13 +579,13 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 		else
 			$marker['###PROFILELINK###'] = 'http://'.$ctrl['orgdomain'].'/index.php?id='.$ctrl['userpage'];
 			/*$marker['###PROFILELINK###'] = $this->cObj->typolink_url(
-				'', 
+				'',
 				array(
 					'parameter'	=> intval($ctrl['userpage']),
 					'linkAccessRestrictedPages' => TRUE
 				)
 			);*/
-		
+
 		if ($type == 'html')
 			$marker['###NEWSLIST###'] = $news;
 		else
@@ -634,7 +632,6 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 	 *
 	 * @return	void
 	 */
-
 	function smsList() {
 
 		$sql='select * from tx_auxnewsmailer_maillist where state=0 and msgtype=2 order by idnews limit 0,50';
@@ -720,7 +717,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 	 * Look up are FE user in the table fe_users
 	 *
 	 * @param	int		$uid: id of the user.
-	 * @return	array	fe_users field values.
+	 * @return	array		fe_users field values.
 	 */
 	function getUserInfo($uid) {
 
@@ -749,7 +746,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 	 * @return	array		array with message details and control info
 	 */
 	function getMessageInfo($uid) {
-	
+
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
 				'*',
 				'tx_auxnewsmailer_msglist,tx_auxnewsmailer_control',
@@ -794,8 +791,8 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 	 * Scans the tt_news table for unsend news items.
 	 *
 	 * @param	string		$list: if $list='mail' the messages are prepared for mail based newsletters.  if $list='sms' the messages are prepared for sms based newsletters
-	 * @param	int			$idctrl: uid of a certain newsletter control record. if $idctrl=0 all newsletter controls are scanned
-	 * @return	int			Number of news items scanned
+	 * @param	int		$idctrl: uid of a certain newsletter control record. if $idctrl=0 all newsletter controls are scanned
+	 * @return	int		Number of news items scanned
 	 */
 	function scanNews($list, $idctrl) {
 
@@ -884,7 +881,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 	 * @return	boolean		true if the newsletter control must be scanned
 	 */
 	function checkDuration($ctrl) {
-	
+
 	  	$res=false;
 
 	  	if (!$this->inBatch)
@@ -939,7 +936,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
                         $wctrl='and tx_auxnewsmailer_msglist.idctrl='.$ctrl['uid'];
 
 		}
-	
+
 		$limit=50;
 
         $dbres = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
@@ -969,9 +966,9 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 			$marker['###orgname###']=$msg['name'];
 			$marker['###org###']=$msg['organisation'];
 			$marker['###domain###']=$msg['orgdomain'];
-			
+
 			$resources=unserialize($msg['resources']);
-			
+
 
 			$plain=$this->cObj->substituteMarkerArray($msg['plain'],$marker);
 			$title=$this->cObj->substituteMarkerArray($title,$marker);
@@ -1018,21 +1015,21 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 			$mail->setTo(array($email => $name));
 			$mail->setSubject($subject);
 			$mail->setReturnPath($returnMail);
-			
+
 			if ($html){
 				/*$stylesheetFile=$ctrl['stylesheet'];
 				if (!$stylesheetFile)
 					$stylesheetFile='../res/mail.css';
-				
+
 				$stylesheet=file_get_contents($stylesheetFile);
 				$cidStylesheet = $mail->embed(Swift_Image::newInstance($stylesheet, 'mail.css', 'text/css'));
 				$marker=array();
 				$marker['###CSS###']=$cidStylesheet;
 				$marker['###IMAGE###']='';*/
-				
+
 				//$i=0;
 				foreach ($resources as $i=>$res){
-					if ($res) { 
+					if ($res) {
 						$resData=file_get_contents($res);
 						$info = pathinfo($res);
 						$cidRes=$mail->embed(Swift_Image::newInstance($resData, $info['filename'].'.'.$info['extension'], 'text/css'));
@@ -1043,7 +1040,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 						$marker['###RES_'.$i.'###']="";
 					}
 				}
-								
+
 				/*if ($ctrl['image']){
 					$image=$this->getImage($ctrl['image'],$ctrl['imagew'],$ctrl['imageh']);
 					$imageData=file_get_contents($image['url']);
@@ -1052,26 +1049,26 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 					$tag=str_replace('###URL###',$cidImage,$image['tag']);
 					$marker['###IMAGE###']=$tag;
 				}*/
-				
-				
-		//print_r($cid);		
-				
-		//print_r($stylesheet);		
+
+
+		//print_r($cid);
+
+		//print_r($stylesheet);
 				$html=$this->cObj->substituteMarkerArray($html,$marker);
-				
+
 				$mail->setBody($html, 'text/html');
 				$mail->addPart($message, 'text/plain');
-				
-				
+
+
 				//$mail->addPart($stylesheet, 'text/css');
 			} else {
 				$mail->setBody($message);
 			}
 			$mail->send();
 		} else {
-	 		// swiftmailer not available? 
+	 		// swiftmailer not available?
 			require_once (PATH_t3lib.'class.t3lib_htmlmail.php');
-		
+
 			$cls=t3lib_div::makeInstanceClassName('t3lib_htmlmail');
 
 			if (class_exists($cls))
@@ -1161,7 +1158,7 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 		$uploadfolder=PATH_site.'/uploads/pics/'.$file;
 
         if (!@is_file($uploadfolder))        die('Error: '.$uploadfolder.' was not a file');
-		
+
 		//$imgObj->dontCheckForExistingTempFile=true; //should be true only for debugging
 		$imgInfo = $imgObj->imageMagickConvert($uploadfolder,'jpg',$width.' m',$height.' m','','',1);
 
@@ -1183,13 +1180,33 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 			$theImgCode['url']=$url;
 			return $theImgCode;
 		}
-		
 
 
 
-		
+
+
 	}
 
+		/**
+		* A TCEMain hook to delete subscription when a fe_user is deleted.
+		* 
+		*
+		* @param	string		$command
+		* @param	string		$table
+		* @param	int		$id
+		* @param	mixed		$value
+		* @return	void
+		*/
+        public function processCmdmap_postProcess($command, $tableName, $recordId) {
+
+                if ($command == 'delete' && $tableName = 'fe_users' && $recordId > 0 ){
+                        $GLOBALS['TYPO3_DB']->exec_DELETEquery('tx_auxnewsmailer_usercat', 'iduser=' . intval($recordId) );
+                        $GLOBALS['TYPO3_DB']->exec_DELETEquery('tx_auxnewsmailer_usermsg', 'iduser=' . intval($recordId) );
+                        $GLOBALS['TYPO3_DB']->exec_DELETEquery('tx_auxnewsmailer_maillist','iduser=' . intval($recordId) );
+
+                }
+
+        }
 
 }
 

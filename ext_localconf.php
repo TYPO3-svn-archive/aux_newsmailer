@@ -36,5 +36,7 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_auxnewsmaile
 	'additionalFields' => 'tx_auxnewsmailer_scheduler_addFields'
 );
 
+//registering a hook when records are inserted/copied/deleted etc.  This extension needs to know when a fe_users is deleted to remove it's subscriptions.
+$TYPO3_CONF_VARS['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass']['tx_auxnewsmailer'] = 'EXT:aux_newsmailer/mod1/class_auxnewsmailer_core.php:&tx_auxnewsmailer_core';
 
 ?>

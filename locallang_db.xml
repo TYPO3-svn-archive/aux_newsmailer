@@ -49,7 +49,6 @@
 			<label index="tx_auxnewsmailer_control.duration.I.9">Immediately</label>
 			<label index="tx_auxnewsmailer_control.duration">Automatic maling</label>
 			<label index="tx_auxnewsmailer_control.folders">News folders</label>
-			<label index="tx_auxnewsmailer_control.categories">Categories</label>
 			<label index="tx_auxnewsmailer_control.lasttime">Last action time</label>
 			<label index="tx_auxnewsmailer_control.lang">Language</label>
 			<label index="tx_auxnewsmailer_control.domain">Domain</label>
@@ -59,6 +58,8 @@
 			<label index="tx_auxnewsmailer_control.showitems.I.2">Body</label>
 			<label index="tx_auxnewsmailer_control.showitems.I.3">Date</label>
 			<label index="tx_auxnewsmailer_control.showitems.I.4">Time</label>
+			<label index="tx_auxnewsmailer_control.showitems.I.5">Read more</label>
+			<label index="tx_auxnewsmailer_control.showitems.I.6">Subheader</label>
 			<label index="tx_auxnewsmailer_control.settings">Settings</label>
 			<label index="tx_auxnewsmailer_control.ctrlfolders">Folders</label>
 			<label index="tx_auxnewsmailer_control.text">Text</label>
@@ -125,7 +126,6 @@
 			<label index="tx_auxnewsmailer_control.duration.I.9">med det samme</label>
 			<label index="tx_auxnewsmailer_control.duration">Automatisk afsendelse</label>
 			<label index="tx_auxnewsmailer_control.folders">Foldere med nyheder</label>
-			<label index="tx_auxnewsmailer_control.categories">Kategorier</label>
 			<label index="tx_auxnewsmailer_control.lasttime">Sidste gang skannet</label>
 			<label index="tx_auxnewsmailer_control.settings">Indstillinger</label>
 			<label index="tx_auxnewsmailer_control.ctrlfolders">Mapper</label>
@@ -138,6 +138,8 @@
 			<label index="tx_auxnewsmailer_control.showitems.I.2">Body</label>
 			<label index="tx_auxnewsmailer_control.showitems.I.3">Date</label>
 			<label index="tx_auxnewsmailer_control.showitems.I.4">Time</label>
+			<label index="tx_auxnewsmailer_control.showitems.I.5">Read more</label>
+			<label index="tx_auxnewsmailer_control.showitems.I.6">Subheader</label>
 			<label index="tt_content.list_type_pi1">Mail News settings</label>
 			<label index="tt_news.tx_auxnewsmailer_maildone">mail done</label>
 			<label index="tt_news.tx_auxnewsmailer_smsdone">SMS done</label>
@@ -197,7 +199,6 @@
 			<label index="tx_auxnewsmailer_control.duration.I.9">Sofort</label>
 			<label index="tx_auxnewsmailer_control.duration">Automatisches Mailing</label>
 			<label index="tx_auxnewsmailer_control.folders">News-Ordner</label>
-			<label index="tx_auxnewsmailer_control.categories">Kategorien</label>			
 			<label index="tx_auxnewsmailer_control.lasttime">Zuletzt ausgeführt</label>
 			<label index="tx_auxnewsmailer_control.lang">Sprache</label>
 			<label index="tx_auxnewsmailer_control.domain">Domain</label>
@@ -207,6 +208,8 @@
 			<label index="tx_auxnewsmailer_control.showitems.I.2">Body</label>
 			<label index="tx_auxnewsmailer_control.showitems.I.3">Date</label>
 			<label index="tx_auxnewsmailer_control.showitems.I.4">Time</label>
+			<label index="tx_auxnewsmailer_control.showitems.I.5">Read more</label>
+			<label index="tx_auxnewsmailer_control.showitems.I.6">Subheader</label>
 			<label index="tx_auxnewsmailer_control.pretext">Vorspann (Header)</label>
 			<label index="tx_auxnewsmailer_control.posttext">Nachspann (Footer)</label>
 			<label index="tt_content.list_type_pi1">Einstellungen News-Versand</label>
@@ -268,7 +271,6 @@
 			<label index="tx_auxnewsmailer_control.duration.I.9">Immédiatement</label>
 			<label index="tx_auxnewsmailer_control.duration">Envoi automatique</label>
 			<label index="tx_auxnewsmailer_control.folders">Dossiers des nouvelles</label>
-			<label index="tx_auxnewsmailer_control.categories">Catégories</label>			
 			<label index="tx_auxnewsmailer_control.lasttime">Date de denière action</label>
 			<label index="tx_auxnewsmailer_control.lang">Langue</label>
 			<label index="tx_auxnewsmailer_control.domain">Domaine</label>
@@ -278,6 +280,8 @@
 			<label index="tx_auxnewsmailer_control.showitems.I.2">Corps du texte</label>
 			<label index="tx_auxnewsmailer_control.showitems.I.3">Date</label>
 			<label index="tx_auxnewsmailer_control.showitems.I.4">Heure</label>
+			<label index="tx_auxnewsmailer_control.showitems.I.5">Suite</label>
+			<label index="tx_auxnewsmailer_control.showitems.I.5">Sous-titre</label>
 			<label index="tx_auxnewsmailer_control.settings">Paramètres</label>
 			<label index="tx_auxnewsmailer_control.ctrlfolders">Dossiers</label>
 			<label index="tx_auxnewsmailer_control.text">Texte</label>
@@ -344,7 +348,6 @@
 			<label index="tx_auxnewsmailer_control.duration.I.9">Natychmiast</label>
 			<label index="tx_auxnewsmailer_control.duration">Automatyczny maling</label>
 			<label index="tx_auxnewsmailer_control.folders">Folder aktualności</label>
-			<label index="tx_auxnewsmailer_control.categories">Kategorie</label>			
 			<label index="tx_auxnewsmailer_control.lasttime">Data ostatniej akcji</label>
 			<label index="tx_auxnewsmailer_control.lang">Język</label>
 			<label index="tx_auxnewsmailer_control.domain">Domena</label>
@@ -354,6 +357,8 @@
 			<label index="tx_auxnewsmailer_control.showitems.I.2">Body</label>
 			<label index="tx_auxnewsmailer_control.showitems.I.3">Date</label>
 			<label index="tx_auxnewsmailer_control.showitems.I.4">Time</label>
+			<label index="tx_auxnewsmailer_control.showitems.I.5">Read more</label>
+			<label index="tx_auxnewsmailer_control.showitems.I.6">Subheader</label>
 			<label index="tx_auxnewsmailer_control.settings">Ustawienia</label>
 			<label index="tx_auxnewsmailer_control.ctrlfolders">Foldery</label>
 			<label index="tx_auxnewsmailer_control.text">Tekst</label>
@@ -420,7 +425,6 @@
 			<label index="tx_auxnewsmailer_control.duration.I.9">Immédiatement</label>
 			<label index="tx_auxnewsmailer_control.duration">Envoi automatique</label>
 			<label index="tx_auxnewsmailer_control.folders">Dossiers des nouvelles</label>
-			<label index="tx_auxnewsmailer_control.categories">Catégories</label>			
 			<label index="tx_auxnewsmailer_control.lasttime">Date de denière action</label>
 			<label index="tx_auxnewsmailer_control.lang">Langue</label>
 			<label index="tx_auxnewsmailer_control.domain">Domaine</label>
@@ -430,6 +434,8 @@
 			<label index="tx_auxnewsmailer_control.showitems.I.2">Corps du texte</label>
 			<label index="tx_auxnewsmailer_control.showitems.I.3">Date</label>
 			<label index="tx_auxnewsmailer_control.showitems.I.4">Heure</label>
+			<label index="tx_auxnewsmailer_control.showitems.I.5">Suite</label>
+			<label index="tx_auxnewsmailer_control.showitems.I.6">Sous-titre</label>
 			<label index="tx_auxnewsmailer_control.settings">Paramètres</label>
 			<label index="tx_auxnewsmailer_control.ctrlfolders">Dossiers</label>
 			<label index="tx_auxnewsmailer_control.text">Texte</label>

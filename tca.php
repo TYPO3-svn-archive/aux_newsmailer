@@ -18,7 +18,7 @@ $TCA["tx_auxnewsmailer_usercat"] = Array (
 		),
 		"iduser" => Array (		
 			"exclude" => 1,		
-			"label" => "LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_usercat.iduser",		
+			"label" => "LLL:EXT:aux_newsmailer/locallang_db.php:tx_auxnewsmailer_usercat.iduser",		
 			"config" => Array (
 				"type" => "select",	
 				"foreign_table" => "fe_users",	
@@ -30,7 +30,7 @@ $TCA["tx_auxnewsmailer_usercat"] = Array (
 		),
 		"mailcat" => Array (		
 			"exclude" => 1,		
-			"label" => "LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_usercat.mailcat",		
+			"label" => "LLL:EXT:aux_newsmailer/locallang_db.php:tx_auxnewsmailer_usercat.mailcat",		
 			"config" => Array (
 				"type" => "select",	
 				"foreign_table" => "tt_news_cat",	
@@ -42,14 +42,14 @@ $TCA["tx_auxnewsmailer_usercat"] = Array (
 		),
 		"domail" => Array (		
 			"exclude" => 1,		
-			"label" => "LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_usercat.domail",		
+			"label" => "LLL:EXT:aux_newsmailer/locallang_db.php:tx_auxnewsmailer_usercat.domail",		
 			"config" => Array (
 				"type" => "check",
 			)
 		),
 		"dosms" => Array (		
 			"exclude" => 1,		
-			"label" => "LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_usercat.dosms",		
+			"label" => "LLL:EXT:aux_newsmailer/locallang_db.php:tx_auxnewsmailer_usercat.dosms",		
 			"config" => Array (
 				"type" => "check",
 			)
@@ -82,7 +82,7 @@ $TCA["tx_auxnewsmailer_maillist"] = Array (
 		),
 		"iduser" => Array (		
 			"exclude" => 1,		
-			"label" => "LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_maillist.iduser",		
+			"label" => "LLL:EXT:aux_newsmailer/locallang_db.php:tx_auxnewsmailer_maillist.iduser",		
 			"config" => Array (
 				"type" => "select",	
 				"foreign_table" => "fe_users",	
@@ -94,7 +94,7 @@ $TCA["tx_auxnewsmailer_maillist"] = Array (
 		),
 		"idnews" => Array (		
 			"exclude" => 1,		
-			"label" => "LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_maillist.idnews",		
+			"label" => "LLL:EXT:aux_newsmailer/locallang_db.php:tx_auxnewsmailer_maillist.idnews",		
 			"config" => Array (
 				"type" => "select",	
 				"foreign_table" => "tt_news",	
@@ -106,7 +106,7 @@ $TCA["tx_auxnewsmailer_maillist"] = Array (
 		),
 		"state" => Array (		
 			"exclude" => 1,		
-			"label" => "LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_maillist.state",		
+			"label" => "LLL:EXT:aux_newsmailer/locallang_db.php:tx_auxnewsmailer_maillist.state",		
 			"config" => Array (
 				"type" => "input",	
 				"size" => "4",
@@ -122,7 +122,7 @@ $TCA["tx_auxnewsmailer_maillist"] = Array (
 		),
 		"msgtype" => Array (		
 			"exclude" => 1,		
-			"label" => "LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_maillist.msgtype",		
+			"label" => "LLL:EXT:aux_newsmailer/locallang_db.php:tx_auxnewsmailer_maillist.msgtype",		
 			"config" => Array (
 				"type" => "input",	
 				"size" => "4",
@@ -167,7 +167,7 @@ $TCA["tx_auxnewsmailer_control"] = Array (
 			"config" => Array (
 				"type" => "group",
 				"internal_type" => "file",
-				"allowed" => "",	
+				"allowed" => "html,htm,txt",	
 				"disallowed" => "php,php3",	
 				"max_size" => 500,	
 				"uploadfolder" => "uploads/tx_auxnewsmailer",
@@ -182,7 +182,7 @@ $TCA["tx_auxnewsmailer_control"] = Array (
 			"config" => Array (
 				"type" => "group",
 				"internal_type" => "file",
-				"allowed" => "",	
+				"allowed" => "css",	
 				"disallowed" => "php,php3",	
 				"max_size" => 500,	
 				"uploadfolder" => "uploads/tx_auxnewsmailer",
@@ -354,18 +354,6 @@ $TCA["tx_auxnewsmailer_control"] = Array (
 				"maxitems" => 20,
 			)
 		),
-		"categories" => Array (		
-			"exclude" => 1,		
-			"label" => "LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.categories",		
-			"config" => Array (
-				"type" => "group",	
-				"internal_type" => "db",	
-				"allowed" => "pages",	
-				"size" => 5,	
-				"minitems" => 0,
-				"maxitems" => 20,
-			)
-		),
 		"userpage" => Array (		
 			"exclude" => 1,		
 			"label" => "LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.userpage",		
@@ -464,6 +452,8 @@ $TCA["tx_auxnewsmailer_control"] = Array (
 					Array("LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.showitems.I.2", "3"),
 					Array("LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.showitems.I.3", "4"),
 					Array("LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.showitems.I.4", "5"),
+					Array("LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.showitems.I.5", "6"),
+					Array("LLL:EXT:aux_newsmailer/locallang_db.xml:tx_auxnewsmailer_control.showitems.I.6", "7")
 				),
 				"size"=>10,
 				"maxitems"=>20,

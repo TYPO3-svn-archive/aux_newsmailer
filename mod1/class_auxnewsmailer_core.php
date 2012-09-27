@@ -417,13 +417,17 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 				$result .= '		<div class="newsmaildate">'.$newstime.'</div>';
 		}
 			// draw abbreviation
+		if (t3lib_div::inlist($showitems,'7'))
 		$result .= '		<div class="newsmailshort">'.$news['short'].'</div>';
 
 			// draw body
 		if (t3lib_div::inlist($showitems,'3'))
 			$result .= '	<div class="newsmailbody">'.$this->formatStr($news['bodytext']).'</div>';
-		else
+
+
+		if (t3lib_div::inlist($showitems,'6'))
 			$result .= '	<div class="newsmaillink"><a href="http://'.$ctrl['orgdomain'].'/index.php?id='.$ctrl['newspage'].'&tx_ttnews[tt_news]='.$news['uid'].'">'.$LANG->getLL("readmore").'</a></div>';
+
 
 		$result .= '	</div>';
 		$result .= '<div class="ffclear"></div></div>';
@@ -1187,26 +1191,29 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 
 	}
 
-		/**
-		* A TCEMain hook to delete subscription when a fe_user is deleted.
-		* 
-		*
-		* @param	string		$command
-		* @param	string		$table
-		* @param	int		$id
-		* @param	mixed		$value
-		* @return	void
-		*/
+	 /**
+	 * A TCEMain hook to delete subscription when a fe_user is deleted
+	 * language overlay.
+	 *
+	 * @param	string		$command
+	 * @param	string		$table
+	 * @param	int		$id
+	 * @param	mixed		$value
+	 * @return	void
+	 */
         public function processCmdmap_postProcess($command, $tableName, $recordId) {
 
                 if ($command == 'delete' && $tableName = 'fe_users' && $recordId > 0 ){
                         $GLOBALS['TYPO3_DB']->exec_DELETEquery('tx_auxnewsmailer_usercat', 'iduser=' . intval($recordId) );
                         $GLOBALS['TYPO3_DB']->exec_DELETEquery('tx_auxnewsmailer_usermsg', 'iduser=' . intval($recordId) );
+                        $GLOBALS['TYPO3_DB']->exec_DELETEquery('tx_auxnewsmailer_usercat', 'iduser=' . intval($recordId) );
                         $GLOBALS['TYPO3_DB']->exec_DELETEquery('tx_auxnewsmailer_maillist','iduser=' . intval($recordId) );
 
                 }
 
         }
+
+
 
 }
 

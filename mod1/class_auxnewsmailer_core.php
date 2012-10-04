@@ -201,25 +201,26 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 		}
 		$cnt=0;
 		$dbres = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-                '*',
-                'tx_auxnewsmailer_control',
-            	$where,
-                '',
-                '',
-                ''
-        );
+			'*',
+			'tx_auxnewsmailer_control',
+			$where,
+			'',
+			'',
+			''
+			);
+
 		while($ctrl = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbres)) {
 
 
 			//$ctrl=$this->loadControl($idctrl);
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-	                '*',
-	                'tx_auxnewsmailer_maillist',
-	                'state=0 and msgtype=1 and idctrl='.intval($ctrl['uid']),
-	                '',
-	                'iduser',
-					''
-	            );
+				'*',
+				'tx_auxnewsmailer_maillist',
+				'state=0 and msgtype=1 and idctrl='.intval($ctrl['uid']),
+				'',
+				'iduser',
+				''
+	           		);
 
 			$cid=0;
 
@@ -246,11 +247,13 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 				$this->createMsg($cid,$newslist,$ctrl);
 				$cnt++;
 			}
+		
 
 			$updateArray=array(
 				'state'=>'2'
 			);
-			$res = $GLOBALS['TYPO3_DB']->exec_UPDATEquery('tx_auxnewsmailer_maillist','state=0 and msgtype=1', $updateArray);
+			$res = $GLOBALS['TYPO3_DB']->exec_UPDATEquery('tx_auxnewsmailer_maillist','state=0 and msgtype=1 and idctrl=' . intval($ctrl['uid']) , $updateArray);
+
 		}
 		return $cnt;
 	}
@@ -403,11 +406,8 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 				$result.='	<div class="newsmailimage">'.$tag.'</div>';
 			}
 		}
-			// draw title
-		if (t3lib_div::inlist($showitems,'1'))
-			$result.='		<div class="newsmailtitle">'.$news['title'].'</div>';
 
-			// draw date & time
+		// draw date & time
 		if (t3lib_div::inlist($showitems,'4') && t3lib_div::inlist($showitems,'5'))
 			$result .= '		<div class="newsmaildate">'.$newsdate.' '.$newstime.'</div>';
 		else {
@@ -419,6 +419,11 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 			// draw abbreviation
 		if (t3lib_div::inlist($showitems,'7'))
 		$result .= '		<div class="newsmailshort">'.$news['short'].'</div>';
+
+                        // draw title
+                if (t3lib_div::inlist($showitems,'1'))
+                        $result.='              <div class="newsmailtitle">'.$news['title'].'</div>';
+
 
 			// draw body
 		if (t3lib_div::inlist($showitems,'3'))
@@ -872,7 +877,10 @@ class tx_auxnewsmailer_core extends t3lib_SCbase {
 		$updateArray=array(
 			'tx_auxnewsmailer_scanstate'=>'2'
 		);
-		$res = $GLOBALS['TYPO3_DB']->exec_UPDATEquery('tt_news','tx_auxnewsmailer_scanstate=1', $updateArray);
+		$res = $GLOBALS['TYPO3_DB']->exec_UPDATEquery('tt_news','tx_auxnewsmailer_scanstate=1 AND ' .
+									'tt_news.hidden = 0 AND tt_news.deleted = 0 AND '.
+									'tt_news.starttime<' . time() . ' AND ' . 
+								        'tt_news.pid in ' . $pid  , $updateArray);
 
 
 		return $cnt;

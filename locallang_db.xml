@@ -281,7 +281,7 @@
 			<label index="tx_auxnewsmailer_control.showitems.I.3">Date</label>
 			<label index="tx_auxnewsmailer_control.showitems.I.4">Heure</label>
 			<label index="tx_auxnewsmailer_control.showitems.I.5">Suite</label>
-			<label index="tx_auxnewsmailer_control.showitems.I.5">Sous-titre</label>
+			<label index="tx_auxnewsmailer_control.showitems.I.6">Sous-titre</label>
 			<label index="tx_auxnewsmailer_control.settings">Paramètres</label>
 			<label index="tx_auxnewsmailer_control.ctrlfolders">Dossiers</label>
 			<label index="tx_auxnewsmailer_control.text">Texte</label>

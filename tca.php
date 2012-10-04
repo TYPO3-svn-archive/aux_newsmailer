@@ -351,7 +351,7 @@ $TCA["tx_auxnewsmailer_control"] = Array (
 				"allowed" => "pages",	
 				"size" => 5,	
 				"minitems" => 0,
-				"maxitems" => 20,
+				"maxitems" => 50,
 			)
 		),
 		"userpage" => Array (		
